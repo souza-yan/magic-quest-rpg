@@ -16,19 +16,19 @@ const spells: Spell[] = [
     type: 'water',
     name: 'Magia de Água',
     difficulty: 'easy',
-    damage: { min: 25, max: 35 },
+    damage: { min: 20, max: 30 },
     icon: '💧',
     color: 'from-blue-500 to-cyan-500',
-    description: 'Área: Retângulos • 25-35 dano'
+    description: 'Questões fáceis • Dano baixo'
   },
   {
     type: 'fire',
     name: 'Magia de Fogo',
     difficulty: 'medium',
-    damage: { min: 45, max: 60 },
+    damage: { min: 40, max: 60 },
     icon: '🔥',
     color: 'from-orange-500 to-red-500',
-    description: 'Área: Triângulos/Círculos • 45-60 dano'
+    description: 'Questões médias • Dano médio'
   },
   {
     type: 'thunder',
@@ -37,7 +37,7 @@ const spells: Spell[] = [
     damage: { min: 80, max: 100 },
     icon: '⚡',
     color: 'from-yellow-400 to-yellow-600',
-    description: 'Área: Figuras Compostas • 80-100 dano'
+    description: 'Questões difíceis • Dano alto'
   }
 ];
 
@@ -93,28 +93,43 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat }: Batt
       
       setTimeout(() => {
         setEnemy({ ...enemy, hp: Math.max(0, enemy.hp - damage) });
-        toast.success(`✅ CORRETO! Causou ${damage} de dano!`);
+        toast.success(`Causou ${damage} de dano!`);
         setAttacking(false);
-        setIsPlayerTurn(true);
+        setIsPlayerTurn(false);
+        
+        // Enemy turn
+        setTimeout(() => {
+          if (enemy.hp > 0) {
+            setEnemyAttacking(true);
+            setTimeout(() => {
+              const enemyDmg = enemy.damage;
+              setPlayer({ ...player, hp: Math.max(0, player.hp - enemyDmg) });
+              toast.error(`Inimigo causou ${enemyDmg} de dano!`);
+              setEnemyAttacking(false);
+              setIsPlayerTurn(true);
+            }, 800);
+          }
+        }, 1500);
       }, 600);
     }
   };
 
   const handleIncorrectAnswer = () => {
     setCurrentQuestion(null);
+    setIsPlayerTurn(false);
     
-    toast.error('❌ INCORRETO! Você tomou dano!');
+    toast.error('Resposta incorreta! O inimigo aproveitou sua falha!');
     
     setTimeout(() => {
       setEnemyAttacking(true);
       setTimeout(() => {
-        const damage = Math.floor(enemy.damage * 1.5); // Penalty for wrong answer
+        const damage = enemy.damage * 1.5; // Penalty for wrong answer
         setPlayer({ ...player, hp: Math.max(0, player.hp - damage) });
-        toast.error(`Tomou ${damage} de dano!`);
+        toast.error(`Tomou ${damage} de dano crítico!`);
         setEnemyAttacking(false);
         setIsPlayerTurn(true);
       }, 800);
-    }, 600);
+    }, 1000);
   };
 
   return (

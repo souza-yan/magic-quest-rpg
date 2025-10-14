@@ -76,33 +76,21 @@ export const Calculator = () => {
             {btn}
           </Button>
         ))}
-        <Button
-          key="0"
-          variant="secondary"
-          size="sm"
-          className="h-10 text-xs col-span-2"
-          onClick={() => handleNumber('0')}
-        >
-          0
-        </Button>
-        <Button
-          key="."
-          variant="secondary"
-          size="sm"
-          className="h-10 text-xs"
-          onClick={() => handleNumber('.')}
-        >
-          .
-        </Button>
-        <Button
-          key="+"
-          variant="default"
-          size="sm"
-          className="h-10 text-xs"
-          onClick={() => handleOperator('+')}
-        >
-          +
-        </Button>
+        {['0', '.', '=', '+'].map((btn) => (
+          <Button
+            key={btn}
+            variant={btn === '=' || btn === '+' ? 'default' : 'secondary'}
+            size="sm"
+            className="h-10 text-xs"
+            onClick={() => {
+              if (btn === '=') handleEquals();
+              else if (btn === '+') handleOperator(btn);
+              else handleNumber(btn);
+            }}
+          >
+            {btn}
+          </Button>
+        ))}
         <Button
           variant="destructive"
           size="sm"
