@@ -11,7 +11,9 @@ export const generateEasyQuestion = (): Question => {
       return {
         question: `Um retângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
         answer: base * altura,
-        type: 'Área do Retângulo'
+        type: 'Área do Retângulo',
+        shape: 'rectangle',
+        dimensions: { width: base, height: altura }
       };
     },
     () => {
@@ -20,7 +22,9 @@ export const generateEasyQuestion = (): Question => {
       return {
         question: `Um quadrado tem lado de ${lado}cm. Qual é sua área em cm²?`,
         answer: lado * lado,
-        type: 'Área do Quadrado'
+        type: 'Área do Quadrado',
+        shape: 'square',
+        dimensions: { side: lado }
       };
     },
     () => {
@@ -30,7 +34,9 @@ export const generateEasyQuestion = (): Question => {
       return {
         question: `Um triângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
         answer: (base * altura) / 2,
-        type: 'Área do Triângulo'
+        type: 'Área do Triângulo',
+        shape: 'triangle',
+        dimensions: { base: base, height: altura }
       };
     }
   ];
@@ -47,7 +53,9 @@ export const generateMediumQuestion = (): Question => {
       return {
         question: `Um paralelogramo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
         answer: base * altura,
-        type: 'Área do Paralelogramo'
+        type: 'Área do Paralelogramo',
+        shape: 'parallelogram',
+        dimensions: { base: base, height: altura }
       };
     },
     () => {
@@ -57,7 +65,9 @@ export const generateMediumQuestion = (): Question => {
       return {
         question: `Um círculo tem raio de ${raio}cm. Qual é sua área em cm²? (use π = 3,14)`,
         answer: parseFloat(area.toFixed(2)),
-        type: 'Área do Círculo'
+        type: 'Área do Círculo',
+        shape: 'circle',
+        dimensions: { radius: raio }
       };
     },
     () => {
@@ -68,7 +78,9 @@ export const generateMediumQuestion = (): Question => {
       return {
         question: `Um trapézio tem base maior de ${baseMaior}cm, base menor de ${baseMenor}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
         answer: ((baseMaior + baseMenor) * altura) / 2,
-        type: 'Área do Trapézio'
+        type: 'Área do Trapézio',
+        shape: 'trapezoid',
+        dimensions: { topBase: baseMenor, bottomBase: baseMaior, height: altura }
       };
     }
   ];
@@ -85,7 +97,9 @@ export const generateHardQuestion = (): Question => {
       return {
         question: `Um losango tem diagonal maior de ${diagMaior}cm e diagonal menor de ${diagMenor}cm. Qual é sua área em cm²?`,
         answer: (diagMaior * diagMenor) / 2,
-        type: 'Área do Losango'
+        type: 'Área do Losango',
+        shape: 'diamond',
+        dimensions: { diagonalMajor: diagMaior, diagonalMinor: diagMenor }
       };
     },
     () => {
@@ -95,7 +109,9 @@ export const generateHardQuestion = (): Question => {
       return {
         question: `Um escudo circular tem raio de ${raio}cm. Qual é sua área total em cm²? (use π = 3,14)`,
         answer: parseFloat(area.toFixed(2)),
-        type: 'Área do Círculo Grande'
+        type: 'Área do Círculo Grande',
+        shape: 'circle',
+        dimensions: { radius: raio }
       };
     },
     () => {
@@ -108,7 +124,13 @@ export const generateHardQuestion = (): Question => {
       return {
         question: `Uma casa tem formato de um retângulo (${baseRet}cm × ${alturaRet}cm) com um triângulo no topo (base ${baseRet}cm, altura ${alturaTri}cm). Qual é a área total em cm²?`,
         answer: areaRetangulo + areaTriangulo,
-        type: 'Área Composta'
+        type: 'Área Composta',
+        shape: 'house',
+        dimensions: { 
+          rectWidth: baseRet, 
+          rectHeight: alturaRet, 
+          triHeight: alturaTri 
+        }
       };
     }
   ];
@@ -123,7 +145,9 @@ export const generateAreaQuestion = (shape: 'rectangle' | 'triangle'): Question 
     return {
       question: `Um retângulo tem largura ${width}cm e altura ${height}cm. Qual é sua área em cm²?`,
       answer: width * height,
-      type: 'Área do Retângulo'
+      type: 'Área do Retângulo',
+      shape: 'rectangle',
+      dimensions: { width: width, height: height }
     };
   } else {
     const base = randomInt(6, 20);
@@ -131,7 +155,9 @@ export const generateAreaQuestion = (shape: 'rectangle' | 'triangle'): Question 
     return {
       question: `Um triângulo tem base ${base}cm e altura ${height}cm. Qual é sua área em cm²?`,
       answer: (base * height) / 2,
-      type: 'Área do Triângulo'
+      type: 'Área do Triângulo',
+      shape: 'triangle',
+      dimensions: { base: base, height: height }
     };
   }
 };

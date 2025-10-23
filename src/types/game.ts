@@ -36,6 +36,8 @@ export interface Question {
   question: string;
   answer: number;
   type: string;
+  shape?: string;
+  dimensions?: any;
 }
 
 export interface DialogMessage {

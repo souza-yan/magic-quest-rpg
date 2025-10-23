@@ -22,7 +22,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGame
     const handleKeyPress = (e: KeyboardEvent) => {
       if (showDialog || currentQuestion) return;
 
-      const speed = 5;
+      const speed = 25;
       const newPos = { ...character.position };
 
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') newPos.y -= speed;
