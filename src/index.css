@@ -170,6 +170,12 @@ All colors MUST be HSL.
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Pixel art text */
+  body {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
   }
   
   .text-stroke {
