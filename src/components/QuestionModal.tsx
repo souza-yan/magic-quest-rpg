@@ -4,7 +4,6 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Question } from '@/types/game';
 import { validateAnswer } from '@/utils/mathQuestions';
-import { GeometricFigure } from './GeometricFigure';
 
 interface QuestionModalProps {
   question: Question;
@@ -57,10 +56,6 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType }: Q
           <h2 className="text-sm font-bold mb-4 text-foreground leading-relaxed">
             {question.question}
           </h2>
-          
-          {question.figure && (
-            <GeometricFigure shape={question.figure.shape} dimensions={question.figure.dimensions} />
-          )}
         </div>
 
         {!showFeedback ? (
