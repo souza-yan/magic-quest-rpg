@@ -15,9 +15,9 @@ export const DialogBox = ({ speaker, text, onClose }: DialogBoxProps) => {
           <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-2xl">
             🧙‍♂️
           </div>
-          <h3 className="text-sm font-bold text-primary">{speaker}</h3>
+          <h3 className="text-1xl font-bold text-primary">{speaker}</h3>
         </div>
-        <p className="text-xs leading-relaxed mb-6 text-foreground">
+        <p className="text-1xl leading-relaxed mb-6 text-foreground">
           {text}
         </p>
         <div className="flex justify-end">

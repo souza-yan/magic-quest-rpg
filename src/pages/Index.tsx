@@ -14,6 +14,7 @@ const Index = () => {
     maxHp: 100,
     hasStaff: false
   });
+  const [showCalculator, setShowCalculator] = useState(false);
 
   const handleStart = () => {
     setGameState('forest');
@@ -47,7 +48,7 @@ const Index = () => {
 
   return (
     <>
-      {gameState !== 'title' && gameState !== 'credits' && <Calculator />}
+      {showCalculator && <Calculator />}
       
       {gameState === 'title' && (
         <TitleScreen onStart={handleStart} onCredits={handleCredits} />
@@ -62,6 +63,7 @@ const Index = () => {
           onComplete={handleForestComplete}
           character={character}
           setCharacter={setCharacter}
+          setShowCalculator={setShowCalculator}
         />
       )}
       
@@ -70,6 +72,7 @@ const Index = () => {
           character={character}
           onVictory={handleBattleVictory}
           onDefeat={handleBattleDefeat}
+          setShowCalculator={setShowCalculator}
         />
       )}
     </>

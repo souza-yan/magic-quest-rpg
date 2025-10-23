@@ -9,9 +9,10 @@ interface TopDownGameProps {
   onComplete: () => void;
   character: Character;
   setCharacter: (char: Character) => void;
+  setShowCalculator: (show: boolean) => void;
 }
 
-export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGameProps) => {
+export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalculator }: TopDownGameProps) => {
   const [inLibrary, setInLibrary] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<any>(null);
@@ -69,8 +70,10 @@ export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGame
     if (inLibrary && distance < 100) {
       if (questionsAnswered === 0) {
         setCurrentQuestion(generateAreaQuestion('rectangle'));
+        setShowCalculator(true);
       } else if (questionsAnswered === 1) {
         setCurrentQuestion(generateAreaQuestion('triangle'));
+        setShowCalculator(true);
       }
     }
   };
@@ -79,6 +82,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGame
     const newAnswered = questionsAnswered + 1;
     setQuestionsAnswered(newAnswered);
     setCurrentQuestion(null);
+    setShowCalculator(false);
 
     if (newAnswered === 1) {
       toast.success('Ótimo! Você criou o cajado!');
@@ -94,6 +98,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGame
 
   const handleIncorrectAnswer = () => {
     setCurrentQuestion(null);
+    setShowCalculator(false);
     toast.error('Resposta incorreta! Tente novamente.');
   };
 
@@ -137,7 +142,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter }: TopDownGame
           filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))'
         }}
       >
-        {character.hasStaff ? '🧙‍♂️' : '🚶'}
+        {character.hasStaff ? '🧙' : '🚶'}
       </div>
 
       {/* UI Overlay */}

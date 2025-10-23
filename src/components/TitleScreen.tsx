@@ -21,7 +21,7 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
           }}>
             MATEMÁGICO
           </h1>
-          <p className="text-sm text-purple-300 max-w-md mx-auto leading-relaxed">
+          <p className="text-2xl text-purple-300 max-w-md mx-auto leading-relaxed">
             Domine os poderes da matemática e torne-se um grande mago!
           </p>
         </div>
@@ -43,8 +43,8 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
           </Button>
         </div>
 
-        <div className="text-xs text-purple-400/60 animate-pulse">
-          Pressione ESPAÇO ou E para interagir • Use WASD ou setas para mover
+        <div className="text-3xl text-purple-400/60 animate-pulse">
+          Pressione ESPAÇO • Use WASD ou setas para mover
         </div>
       </div>
     </div>
