@@ -5,21 +5,32 @@ const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max 
 export const generateEasyQuestion = (): Question => {
   const operations = [
     () => {
-      const a = randomInt(10, 50);
-      const b = randomInt(10, 50);
+      // Retângulo: base × altura
+      const base = randomInt(5, 15);
+      const altura = randomInt(5, 15);
       return {
-        question: `Quanto é ${a} + ${b}?`,
-        answer: a + b,
-        type: 'Adição'
+        question: `Um retângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
+        answer: base * altura,
+        type: 'Área do Retângulo'
       };
     },
     () => {
-      const a = randomInt(30, 100);
-      const b = randomInt(10, a - 10);
+      // Quadrado: lado²
+      const lado = randomInt(5, 12);
       return {
-        question: `Quanto é ${a} - ${b}?`,
-        answer: a - b,
-        type: 'Subtração'
+        question: `Um quadrado tem lado de ${lado}cm. Qual é sua área em cm²?`,
+        answer: lado * lado,
+        type: 'Área do Quadrado'
+      };
+    },
+    () => {
+      // Triângulo: (base × altura) / 2
+      const base = randomInt(6, 16);
+      const altura = randomInt(6, 16);
+      return {
+        question: `Um triângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
+        answer: (base * altura) / 2,
+        type: 'Área do Triângulo'
       };
     }
   ];
@@ -30,31 +41,34 @@ export const generateEasyQuestion = (): Question => {
 export const generateMediumQuestion = (): Question => {
   const operations = [
     () => {
-      const a = randomInt(5, 15);
-      const b = randomInt(5, 15);
+      // Paralelogramo: base × altura
+      const base = randomInt(8, 18);
+      const altura = randomInt(6, 14);
       return {
-        question: `Quanto é ${a} × ${b}?`,
-        answer: a * b,
-        type: 'Multiplicação'
+        question: `Um paralelogramo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
+        answer: base * altura,
+        type: 'Área do Paralelogramo'
       };
     },
     () => {
-      const b = randomInt(5, 12);
-      const answer = randomInt(10, 20);
-      const a = b * answer;
+      // Círculo: π × raio² (usar π = 3,14)
+      const raio = randomInt(4, 10);
+      const area = 3.14 * raio * raio;
       return {
-        question: `Quanto é ${a} ÷ ${b}?`,
-        answer: answer,
-        type: 'Divisão'
+        question: `Um círculo tem raio de ${raio}cm. Qual é sua área em cm²? (use π = 3,14)`,
+        answer: parseFloat(area.toFixed(2)),
+        type: 'Área do Círculo'
       };
     },
     () => {
-      const value = randomInt(100, 500);
-      const percent = randomInt(10, 50);
+      // Trapézio: ((base maior + base menor) × altura) / 2
+      const baseMaior = randomInt(12, 20);
+      const baseMenor = randomInt(6, baseMaior - 2);
+      const altura = randomInt(6, 12);
       return {
-        question: `Quanto é ${percent}% de ${value}?`,
-        answer: Math.round((value * percent) / 100),
-        type: 'Porcentagem'
+        question: `Um trapézio tem base maior de ${baseMaior}cm, base menor de ${baseMenor}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
+        answer: ((baseMaior + baseMenor) * altura) / 2,
+        type: 'Área do Trapézio'
       };
     }
   ];
@@ -65,40 +79,36 @@ export const generateMediumQuestion = (): Question => {
 export const generateHardQuestion = (): Question => {
   const operations = [
     () => {
-      const b = randomInt(-10, 10);
-      const c = randomInt(-20, 20);
-      const delta = b * b - 4 * c;
-      if (delta < 0 || delta % 1 !== 0) return generateHardQuestion();
-      const x1 = Math.round((-b + Math.sqrt(delta)) / 2);
+      // Losango: (diagonal maior × diagonal menor) / 2
+      const diagMaior = randomInt(12, 24);
+      const diagMenor = randomInt(8, 18);
       return {
-        question: `Resolva x² + ${b}x + ${c} = 0. Qual é a maior raiz? (arredonde se necessário)`,
-        answer: x1,
-        type: 'Equação 2º grau'
+        question: `Um losango tem diagonal maior de ${diagMaior}cm e diagonal menor de ${diagMenor}cm. Qual é sua área em cm²?`,
+        answer: (diagMaior * diagMenor) / 2,
+        type: 'Área do Losango'
       };
     },
     () => {
-      const angle = [0, 30, 45, 60, 90][randomInt(0, 4)];
-      const values: { [key: number]: number } = {
-        0: 0,
-        30: 0.5,
-        45: 0.71,
-        60: 0.87,
-        90: 1
-      };
+      // Círculo maior: π × raio²
+      const raio = randomInt(8, 15);
+      const area = 3.14 * raio * raio;
       return {
-        question: `Quanto é sen(${angle}°)? (use 2 casas decimais)`,
-        answer: values[angle],
-        type: 'Trigonometria'
+        question: `Um escudo circular tem raio de ${raio}cm. Qual é sua área total em cm²? (use π = 3,14)`,
+        answer: parseFloat(area.toFixed(2)),
+        type: 'Área do Círculo Grande'
       };
     },
     () => {
-      const a = randomInt(2, 8);
-      const b = randomInt(3, 10);
-      const x = randomInt(2, 5);
+      // Figura composta: retângulo + triângulo (formato de casa)
+      const baseRet = randomInt(8, 14);
+      const alturaRet = randomInt(10, 16);
+      const alturaTri = randomInt(5, 10);
+      const areaRetangulo = baseRet * alturaRet;
+      const areaTriangulo = (baseRet * alturaTri) / 2;
       return {
-        question: `Se f(x) = ${a}x + ${b}, quanto é f(${x})?`,
-        answer: a * x + b,
-        type: 'Função'
+        question: `Uma casa tem formato de um retângulo (${baseRet}cm × ${alturaRet}cm) com um triângulo no topo (base ${baseRet}cm, altura ${alturaTri}cm). Qual é a área total em cm²?`,
+        answer: areaRetangulo + areaTriangulo,
+        type: 'Área Composta'
       };
     }
   ];
@@ -130,6 +140,6 @@ export const validateAnswer = (userAnswer: string, correctAnswer: number): boole
   const parsed = parseFloat(userAnswer);
   if (isNaN(parsed)) return false;
   
-  // Accept answer within 0.05 tolerance for decimal questions
-  return Math.abs(parsed - correctAnswer) < 0.05;
+  // Accept answer within 0.5 tolerance for area questions
+  return Math.abs(parsed - correctAnswer) <= 0.5;
 };
