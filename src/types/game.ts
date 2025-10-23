@@ -36,6 +36,10 @@ export interface Question {
   question: string;
   answer: number;
   type: string;
+  figure?: {
+    shape: 'rectangle' | 'triangle' | 'circle' | 'trapezoid' | 'composite';
+    dimensions: { [key: string]: number | string };
+  };
 }
 
 export interface DialogMessage {

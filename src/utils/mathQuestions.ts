@@ -2,73 +2,89 @@ import { Question } from '@/types/game';
 
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
+// ÁGUA - FÁCIL: Retângulos e Quadrados
 export const generateEasyQuestion = (): Question => {
-  const operations = [
-    () => {
-      // Retângulo: base × altura
-      const base = randomInt(5, 15);
-      const altura = randomInt(5, 15);
-      return {
-        question: `Um retângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
-        answer: base * altura,
-        type: 'Área do Retângulo'
-      };
-    },
-    () => {
-      // Quadrado: lado²
-      const lado = randomInt(5, 12);
-      return {
-        question: `Um quadrado tem lado de ${lado}cm. Qual é sua área em cm²?`,
-        answer: lado * lado,
-        type: 'Área do Quadrado'
-      };
-    },
-    () => {
-      // Triângulo: (base × altura) / 2
-      const base = randomInt(6, 16);
-      const altura = randomInt(6, 16);
-      return {
-        question: `Um triângulo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
-        answer: (base * altura) / 2,
-        type: 'Área do Triângulo'
-      };
-    }
+  const contexts = [
+    { name: 'tapete', unit: 'm²' },
+    { name: 'piscina', unit: 'm²' },
+    { name: 'quadro', unit: 'cm²' },
+    { name: 'mesa', unit: 'm²' },
+    { name: 'parede', unit: 'm²' }
   ];
   
-  return operations[randomInt(0, operations.length - 1)]();
+  const context = contexts[randomInt(0, contexts.length - 1)];
+  const width = randomInt(4, 12);
+  const height = randomInt(4, 12);
+  const isSquare = Math.random() > 0.7;
+  
+  if (isSquare) {
+    const side = randomInt(5, 10);
+    return {
+      question: `Calcule a área de um ${context.name} quadrado que mede ${side}m de lado.`,
+      answer: side * side,
+      type: 'Área do Quadrado',
+      figure: {
+        shape: 'rectangle' as const,
+        dimensions: { width: side, height: side }
+      }
+    };
+  }
+  
+  return {
+    question: `Calcule a área de um ${context.name} retangular de ${width}m por ${height}m.`,
+    answer: width * height,
+    type: 'Área do Retângulo',
+    figure: {
+      shape: 'rectangle' as const,
+      dimensions: { width, height }
+    }
+  };
 };
 
+// FOGO - MÉDIO: Triângulos, Círculos, Trapézios
 export const generateMediumQuestion = (): Question => {
   const operations = [
     () => {
-      // Paralelogramo: base × altura
-      const base = randomInt(8, 18);
-      const altura = randomInt(6, 14);
+      const contexts = ['jardim', 'telhado', 'escudo', 'vela', 'bandeira'];
+      const context = contexts[randomInt(0, contexts.length - 1)];
+      const base = randomInt(6, 16);
+      const height = randomInt(6, 16);
       return {
-        question: `Um paralelogramo tem base de ${base}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
-        answer: base * altura,
-        type: 'Área do Paralelogramo'
+        question: `Um ${context} triangular tem base de ${base}m e altura de ${height}m. Qual sua área?`,
+        answer: (base * height) / 2,
+        type: 'Área do Triângulo',
+        figure: {
+          shape: 'triangle' as const,
+          dimensions: { base, height }
+        }
       };
     },
     () => {
-      // Círculo: π × raio² (usar π = 3,14)
-      const raio = randomInt(4, 10);
-      const area = 3.14 * raio * raio;
+      const contexts = ['mesa circular', 'piscina redonda', 'escudo circular', 'jardim circular'];
+      const context = contexts[randomInt(0, contexts.length - 1)];
+      const radius = randomInt(3, 8);
       return {
-        question: `Um círculo tem raio de ${raio}cm. Qual é sua área em cm²? (use π = 3,14)`,
-        answer: parseFloat(area.toFixed(2)),
-        type: 'Área do Círculo'
+        question: `Calcule a área de ${context} com raio de ${radius}m. Use π = 3,14.`,
+        answer: Math.round(3.14 * radius * radius * 10) / 10,
+        type: 'Área do Círculo',
+        figure: {
+          shape: 'circle' as const,
+          dimensions: { radius }
+        }
       };
     },
     () => {
-      // Trapézio: ((base maior + base menor) × altura) / 2
-      const baseMaior = randomInt(12, 20);
-      const baseMenor = randomInt(6, baseMaior - 2);
-      const altura = randomInt(6, 12);
+      const base1 = randomInt(6, 12);
+      const base2 = randomInt(base1 + 2, base1 + 6);
+      const height = randomInt(4, 8);
       return {
-        question: `Um trapézio tem base maior de ${baseMaior}cm, base menor de ${baseMenor}cm e altura de ${altura}cm. Qual é sua área em cm²?`,
-        answer: ((baseMaior + baseMenor) * altura) / 2,
-        type: 'Área do Trapézio'
+        question: `Um terreno em forma de trapézio tem base maior de ${base2}m, base menor de ${base1}m e altura de ${height}m. Calcule sua área.`,
+        answer: ((base1 + base2) * height) / 2,
+        type: 'Área do Trapézio',
+        figure: {
+          shape: 'trapezoid' as const,
+          dimensions: { base1, base2, height }
+        }
       };
     }
   ];
@@ -76,39 +92,54 @@ export const generateMediumQuestion = (): Question => {
   return operations[randomInt(0, operations.length - 1)]();
 };
 
+// TROVÃO - DIFÍCIL: Figuras Compostas e Polígonos Complexos
 export const generateHardQuestion = (): Question => {
   const operations = [
     () => {
-      // Losango: (diagonal maior × diagonal menor) / 2
-      const diagMaior = randomInt(12, 24);
-      const diagMenor = randomInt(8, 18);
+      // Figura em L (dois retângulos)
+      const w1 = randomInt(6, 10);
+      const h1 = randomInt(4, 7);
+      const w2 = randomInt(3, 5);
+      const h2 = randomInt(3, 5);
       return {
-        question: `Um losango tem diagonal maior de ${diagMaior}cm e diagonal menor de ${diagMenor}cm. Qual é sua área em cm²?`,
-        answer: (diagMaior * diagMenor) / 2,
-        type: 'Área do Losango'
+        question: `Calcule a área desta sala em formato de L: a parte 1 mede ${w1}m x ${h1}m e a parte 2 mede ${w2}m x ${h2}m.`,
+        answer: (w1 * h1) + (w2 * h2),
+        type: 'Área Composta (L)',
+        figure: {
+          shape: 'composite' as const,
+          dimensions: { w1, h1, w2, h2, type: 'L' }
+        }
       };
     },
     () => {
-      // Círculo maior: π × raio²
-      const raio = randomInt(8, 15);
-      const area = 3.14 * raio * raio;
+      // Retângulo + Triângulo no topo
+      const base = randomInt(8, 14);
+      const rectHeight = randomInt(5, 9);
+      const triHeight = randomInt(3, 6);
       return {
-        question: `Um escudo circular tem raio de ${raio}cm. Qual é sua área total em cm²? (use π = 3,14)`,
-        answer: parseFloat(area.toFixed(2)),
-        type: 'Área do Círculo Grande'
+        question: `Calcule a área total desta figura: um retângulo de ${base}m x ${rectHeight}m com um triângulo no topo (base ${base}m, altura ${triHeight}m).`,
+        answer: (base * rectHeight) + ((base * triHeight) / 2),
+        type: 'Área Composta (Casa)',
+        figure: {
+          shape: 'composite' as const,
+          dimensions: { base, rectHeight, triHeight, type: 'house' }
+        }
       };
     },
     () => {
-      // Figura composta: retângulo + triângulo (formato de casa)
-      const baseRet = randomInt(8, 14);
-      const alturaRet = randomInt(10, 16);
-      const alturaTri = randomInt(5, 10);
-      const areaRetangulo = baseRet * alturaRet;
-      const areaTriangulo = (baseRet * alturaTri) / 2;
+      // Área sombreada (retângulo grande - retângulo pequeno)
+      const bigW = randomInt(10, 16);
+      const bigH = randomInt(10, 16);
+      const smallW = randomInt(4, 6);
+      const smallH = randomInt(4, 6);
       return {
-        question: `Uma casa tem formato de um retângulo (${baseRet}cm × ${alturaRet}cm) com um triângulo no topo (base ${baseRet}cm, altura ${alturaTri}cm). Qual é a área total em cm²?`,
-        answer: areaRetangulo + areaTriangulo,
-        type: 'Área Composta'
+        question: `Calcule a área sombreada: um retângulo grande (${bigW}m x ${bigH}m) com um buraco retangular no meio (${smallW}m x ${smallH}m).`,
+        answer: (bigW * bigH) - (smallW * smallH),
+        type: 'Área Sombreada',
+        figure: {
+          shape: 'composite' as const,
+          dimensions: { bigW, bigH, smallW, smallH, type: 'shaded' }
+        }
       };
     }
   ];
@@ -123,7 +154,11 @@ export const generateAreaQuestion = (shape: 'rectangle' | 'triangle'): Question 
     return {
       question: `Um retângulo tem largura ${width}cm e altura ${height}cm. Qual é sua área em cm²?`,
       answer: width * height,
-      type: 'Área do Retângulo'
+      type: 'Área do Retângulo',
+      figure: {
+        shape: 'rectangle' as const,
+        dimensions: { width, height }
+      }
     };
   } else {
     const base = randomInt(6, 20);
@@ -131,7 +166,11 @@ export const generateAreaQuestion = (shape: 'rectangle' | 'triangle'): Question 
     return {
       question: `Um triângulo tem base ${base}cm e altura ${height}cm. Qual é sua área em cm²?`,
       answer: (base * height) / 2,
-      type: 'Área do Triângulo'
+      type: 'Área do Triângulo',
+      figure: {
+        shape: 'triangle' as const,
+        dimensions: { base, height }
+      }
     };
   }
 };
