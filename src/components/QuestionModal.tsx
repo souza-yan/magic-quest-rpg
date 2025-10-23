@@ -4,20 +4,23 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Question } from '@/types/game';
 import { validateAnswer } from '@/utils/mathQuestions';
+import { HelpButton } from './HelpButton';
 
 interface QuestionModalProps {
   question: Question;
   onCorrect: () => void;
   onIncorrect: () => void;
   spellType?: string;
+  isTutorial?: boolean;
+  onHelpUsed?: () => void;
 }
 
 const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?: any }) => {
   if (!shape || !dimensions) return null;
 
-  const scale = 20;
+  const scale = 15;
 
-   const renderShape = () => {
+  const renderShape = () => {
     switch (shape) {
       case 'rectangle':
         return (
@@ -243,7 +246,7 @@ const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?
   );
 };
 
-export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType }: QuestionModalProps) => {
+export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isTutorial = false, onHelpUsed }: QuestionModalProps) => {
   const [answer, setAnswer] = useState('');
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -271,8 +274,8 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType }: Q
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in">
-      <Card className="max-w-2xl w-full mx-8 p-8 bg-card border-4 border-primary animate-scale-in">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in p-4">
+      <Card className="max-w-2xl w-full mx-auto p-8 bg-card border-4 border-primary animate-scale-in max-h-[90vh] overflow-y-auto">
         {spellType && (
           <div className="text-center mb-4">
             <span className="text-2xl">{spellType === 'water' ? '💧' : spellType === 'fire' ? '🔥' : '⚡'}</span>
@@ -283,7 +286,13 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType }: Q
         )}
         
         <div className="mb-6">
-          <div className="text-xs text-muted-foreground mb-2">{question.type}</div>
+          <div className="flex justify-between items-center mb-2">
+            <div className="text-xs text-muted-foreground">{question.type}</div>
+            <HelpButton 
+              formulaType={question.type} 
+              onHelpUsed={onHelpUsed}
+            />
+          </div>
           <h2 className="text-sm font-bold mb-4 text-foreground leading-relaxed">
             {question.question}
           </h2>

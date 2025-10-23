@@ -3,11 +3,14 @@ import { TitleScreen } from '@/components/TitleScreen';
 import { CreditsScreen } from '@/components/CreditsScreen';
 import { TopDownGame } from '@/components/TopDownGame';
 import { BattleScene } from '@/components/BattleScene';
+import { StageMap } from '@/components/StageMap';
 import { Calculator } from '@/components/Calculator';
 import { GameState, Character } from '@/types/game';
 
+type ExtendedGameState = GameState | 'stagemap';
+
 const Index = () => {
-  const [gameState, setGameState] = useState<GameState>('title');
+  const [gameState, setGameState] = useState<ExtendedGameState>('title');
   const [character, setCharacter] = useState<Character>({
     position: { x: 200, y: 200 },
     hp: 100,
@@ -15,9 +18,11 @@ const Index = () => {
     hasStaff: false
   });
   const [showCalculator, setShowCalculator] = useState(false);
+  const [currentStage, setCurrentStage] = useState(1);
 
   const handleStart = () => {
     setGameState('forest');
+    setCurrentStage(1);
     setCharacter({
       position: { x: 200, y: 200 },
       hp: 100,
@@ -35,6 +40,11 @@ const Index = () => {
   };
 
   const handleForestComplete = () => {
+    setCurrentStage(currentStage + 1);
+    setGameState('stagemap');
+  };
+
+  const handleStageMapComplete = () => {
     setGameState('battle');
   };
 
@@ -64,6 +74,13 @@ const Index = () => {
           character={character}
           setCharacter={setCharacter}
           setShowCalculator={setShowCalculator}
+        />
+      )}
+
+      {gameState === 'stagemap' && (
+        <StageMap
+          currentStage={currentStage}
+          onComplete={handleStageMapComplete}
         />
       )}
       

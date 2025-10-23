@@ -38,7 +38,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       setCharacter({ ...character, position: newPos });
 
       // Interactions
-      if ((e.key === ' ' || e.key === 'e' || e.key === 'E') && !showDialog) {
+      if ((e.key === ' ') && !showDialog) {
         handleInteraction();
       }
     };
@@ -91,7 +91,11 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       setTimeout(() => {
         setCharacter({ ...character, hasStaff: true });
         setInLibrary(false);
-        toast('Retorne ao Mago para continuar sua jornada!');
+        // Adiciona diálogo de parabéns quando voltar
+        setTimeout(() => {
+          setDialogMessage('Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!');
+          setShowDialog(true);
+        }, 500);
       }, 2000);
     }
   };
@@ -108,6 +112,11 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       setInLibrary(true);
       toast('Você foi transportado para a Biblioteca!');
     }
+  };
+
+  // Função que não faz nada no tutorial (ajuda sem penalidade)
+  const handleHelpUsed = () => {
+    toast.info('💡 Dica exibida! No tutorial você pode usar ajuda sem penalidades.');
   };
 
   return (
@@ -170,7 +179,7 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       {/* Instructions */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-primary">
         <p className="text-xs text-center">
-          <span className="text-primary font-bold">ESPAÇO/E</span> para interagir • 
+          <span className="text-primary font-bold">ESPAÇO</span> para interagir • 
           <span className="text-primary font-bold"> WASD/Setas</span> para mover
         </p>
       </div>
@@ -188,6 +197,8 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
           question={currentQuestion}
           onCorrect={handleCorrectAnswer}
           onIncorrect={handleIncorrectAnswer}
+          isTutorial={true}
+          onHelpUsed={handleHelpUsed}
         />
       )}
     </div>
