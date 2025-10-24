@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import titleBg from '../img/TitleScreen.jpeg'; // ← caminho relativo correto
 
 interface TitleScreenProps {
   onStart: () => void;
@@ -7,21 +8,42 @@ interface TitleScreenProps {
 
 export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-b from-purple-900 via-purple-800 to-black">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
-      
+    <div
+      className="fixed inset-0 flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${titleBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        //backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <div className="absolute inset-0 bg-black/60" />
+
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+          backgroundSize: '50px 50px',
+        }}
+      />
+
       <div className="relative z-10 text-center space-y-12 p-8">
         <div className="space-y-4 animate-float">
           <div className="text-6xl mb-4">🧙‍♂️✨</div>
-          <h1 className="text-6xl font-bold text-stroke" style={{
-            background: 'linear-gradient(135deg, #a855f7 0%, #fb923c 50%, #ef4444 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
+          <h1
+            className="text-6xl font-bold text-stroke"
+            style={{
+              background:
+                'linear-gradient(135deg, #a855f7 0%, #fb923c 50%, #ef4444 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
             MATEMÁGICO
           </h1>
-          <p className="text-2xl text-purple-300 max-w-md mx-auto leading-relaxed">
+          <p className="text-2xl text-purple-200 max-w-md mx-auto leading-relaxed">
             Domine os poderes da matemática e torne-se um grande mago!
           </p>
         </div>
@@ -33,7 +55,7 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
           >
             ▶ JOGAR
           </Button>
-          
+
           <Button
             onClick={onCredits}
             variant="outline"

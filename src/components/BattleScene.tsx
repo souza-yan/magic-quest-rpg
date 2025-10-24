@@ -10,6 +10,7 @@ interface BattleSceneProps {
   onVictory: () => void;
   onDefeat: () => void;
   setShowCalculator: (show: boolean) => void;
+  currentStage: number;
 }
 
 const spells: Spell[] = [
@@ -42,13 +43,52 @@ const spells: Spell[] = [
   }
 ];
 
-export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setShowCalculator }: BattleSceneProps) => {
-  const [enemy, setEnemy] = useState<Enemy>({
+// Define os inimigos por fase
+const enemies = [
+  {
+    stage: 2,
     name: 'Goblin Matemático',
     hp: 150,
-    maxHp: 150,
     damage: 25,
-    sprite: '👹'
+    sprite: '👹',
+    background: 'from-purple-950 via-black to-purple-900'
+  },
+  {
+    stage: 3,
+    name: 'Morcego das Sombras',
+    hp: 200,
+    damage: 30,
+    sprite: '🦇',
+    background: 'from-gray-900 via-purple-950 to-black'
+  },
+  {
+    stage: 4,
+    name: 'Dragão Ancião',
+    hp: 300,
+    damage: 40,
+    sprite: '🐉',
+    background: 'from-red-950 via-orange-950 to-black'
+  },
+  {
+    stage: 5,
+    name: 'Lorde das Trevas',
+    hp: 400,
+    damage: 50,
+    sprite: '👑',
+    background: 'from-black via-red-950 to-purple-950'
+  }
+];
+
+export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setShowCalculator, currentStage }: BattleSceneProps) => {
+  // Pega o inimigo baseado na fase atual
+  const enemyData = enemies.find(e => e.stage === currentStage) || enemies[0];
+  
+  const [enemy, setEnemy] = useState<Enemy>({
+    name: enemyData.name,
+    hp: enemyData.hp,
+    maxHp: enemyData.hp,
+    damage: enemyData.damage,
+    sprite: enemyData.sprite
   });
 
   const [player, setPlayer] = useState(playerChar);
@@ -61,7 +101,7 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
 
   useEffect(() => {
     if (enemy.hp <= 0) {
-      toast.success('Vitória! Você derrotou o inimigo!');
+      toast.success(`Vitória! Você derrotou o ${enemy.name}!`);
       setTimeout(onVictory, 2000);
     } else if (player.hp <= 0) {
       toast.error('Derrota! Você foi derrotado...');
@@ -73,7 +113,7 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
     if (!isPlayerTurn) return;
     
     setSelectedSpell(spell);
-    setUsedHelp(false); // Reseta a flag de ajuda
+    setUsedHelp(false);
     
     const question = spell.difficulty === 'easy' 
       ? generateEasyQuestion()
@@ -97,13 +137,11 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
     if (selectedSpell) {
       setAttacking(true);
       
-      // Calcula o dano base
       let damage = Math.floor(
         Math.random() * (selectedSpell.damage.max - selectedSpell.damage.min + 1) + 
         selectedSpell.damage.min
       );
       
-      // Se usou ajuda, reduz o dano pela metade
       if (usedHelp) {
         damage = Math.floor(damage / 2);
       }
@@ -119,7 +157,6 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
         
         setAttacking(false);
         setUsedHelp(false);
-        // Jogador continua no turno quando acerta
         setIsPlayerTurn(true);
       }, 600);
     }
@@ -145,17 +182,23 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-b from-purple-950 via-black to-purple-900 overflow-hidden">
+    <div className={`fixed inset-0 bg-gradient-to-b ${enemyData.background} overflow-hidden`}>
       {/* Battle UI */}
       <div className="relative h-full flex flex-col">
-        {/* Battle Area - Side view */}
+        {/* Indicador de Fase */}
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm px-6 py-2 rounded-full border-2 border-red-500 z-10">
+          <p className="text-white text-sm font-bold">
+            ⚔️ FASE {currentStage} - {enemy.name.toUpperCase()}
+          </p>
+        </div>
+
+        {/* Battle Area */}
         <div className="flex-1 relative flex items-center justify-between px-20">
-          {/* Player side */}
+          {/* Player */}
           <div className="relative">
             <div className={`text-8xl transition-all duration-300 ${attacking ? 'animate-attack' : ''} ${player.hp <= 0 ? 'opacity-30 grayscale' : ''}`}>
               🧙‍♂️
             </div>
-            {/* Player HP Bar */}
             <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-48">
               <div className="text-xs text-center mb-2 font-bold text-primary">VOCÊ</div>
               <div className="bg-black/50 rounded-full p-1 border-2 border-primary">
@@ -170,12 +213,11 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
             </div>
           </div>
 
-          {/* Enemy side */}
+          {/* Enemy */}
           <div className="relative">
             <div className={`text-8xl transition-all duration-300 ${enemyAttacking ? 'animate-shake' : ''} ${enemy.hp <= 0 ? 'opacity-30 grayscale' : ''}`}>
               {enemy.sprite}
             </div>
-            {/* Enemy HP Bar */}
             <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-48">
               <div className="text-xs text-center mb-2 font-bold text-destructive">{enemy.name}</div>
               <div className="bg-black/50 rounded-full p-1 border-2 border-destructive">

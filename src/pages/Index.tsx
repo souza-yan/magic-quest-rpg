@@ -6,6 +6,7 @@ import { BattleScene } from '@/components/BattleScene';
 import { StageMap } from '@/components/StageMap';
 import { Calculator } from '@/components/Calculator';
 import { GameState, Character } from '@/types/game';
+import { toast } from 'sonner';
 
 type ExtendedGameState = GameState | 'stagemap';
 
@@ -19,6 +20,7 @@ const Index = () => {
   });
   const [showCalculator, setShowCalculator] = useState(false);
   const [currentStage, setCurrentStage] = useState(1);
+  const [showRetryMessage, setShowRetryMessage] = useState(false);
 
   const handleStart = () => {
     setGameState('forest');
@@ -41,19 +43,30 @@ const Index = () => {
 
   const handleForestComplete = () => {
     setCurrentStage(currentStage + 1);
+    setShowRetryMessage(false);
     setGameState('stagemap');
   };
 
   const handleStageMapComplete = () => {
+    setShowRetryMessage(false);
     setGameState('battle');
   };
 
   const handleBattleVictory = () => {
-    setGameState('forest');
+    toast.success('🎉 Vitória! Avançando para a próxima fase!');
+    setShowRetryMessage(false);
+    // Incrementa a fase ao vencer
+    setCurrentStage(currentStage + 1);
+    setGameState('stagemap');
   };
 
   const handleBattleDefeat = () => {
-    setGameState('title');
+    toast.error('💔 Você foi derrotado! Mas não desista!');
+    setShowRetryMessage(true);
+    // Volta para o mapa SEM incrementar a fase (tenta de novo)
+    setTimeout(() => {
+      setGameState('stagemap');
+    }, 1500);
   };
 
   return (
@@ -81,6 +94,7 @@ const Index = () => {
         <StageMap
           currentStage={currentStage}
           onComplete={handleStageMapComplete}
+          showRetryMessage={showRetryMessage}
         />
       )}
       
@@ -90,6 +104,7 @@ const Index = () => {
           onVictory={handleBattleVictory}
           onDefeat={handleBattleDefeat}
           setShowCalculator={setShowCalculator}
+          currentStage={currentStage}
         />
       )}
     </>

@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Character, Position } from '@/types/game';
+import { Character } from '@/types/game';
 import { DialogBox } from './DialogBox';
 import { QuestionModal } from './QuestionModal';
 import { generateAreaQuestion } from '@/utils/mathQuestions';
 import { toast } from 'sonner';
+
+// Importa a imagem da biblioteca
+import bibliotecaBg from '@/img/Biblioteca.png';
 
 interface TopDownGameProps {
   onComplete: () => void;
@@ -12,7 +15,12 @@ interface TopDownGameProps {
   setShowCalculator: (show: boolean) => void;
 }
 
-export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalculator }: TopDownGameProps) => {
+export const TopDownGame = ({
+  onComplete,
+  character,
+  setCharacter,
+  setShowCalculator,
+}: TopDownGameProps) => {
   const [inLibrary, setInLibrary] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<any>(null);
@@ -31,16 +39,12 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') newPos.x -= speed;
       if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') newPos.x += speed;
 
-      // Boundaries
       newPos.x = Math.max(50, Math.min(window.innerWidth - 100, newPos.x));
       newPos.y = Math.max(50, Math.min(window.innerHeight - 100, newPos.y));
 
       setCharacter({ ...character, position: newPos });
 
-      // Interactions
-      if ((e.key === ' ') && !showDialog) {
-        handleInteraction();
-      }
+      if (e.key === ' ' && !showDialog) handleInteraction();
     };
 
     window.addEventListener('keydown', handleKeyPress);
@@ -48,17 +52,18 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
   }, [character, showDialog, currentQuestion, inLibrary, questionsAnswered]);
 
   const handleInteraction = () => {
-    // Check if near wizard (center of screen)
     const wizardX = window.innerWidth / 2;
     const wizardY = window.innerHeight / 2;
     const distance = Math.sqrt(
-      Math.pow(character.position.x - wizardX, 2) + 
-      Math.pow(character.position.y - wizardY, 2)
+      Math.pow(character.position.x - wizardX, 2) +
+        Math.pow(character.position.y - wizardY, 2)
     );
 
     if (!inLibrary && distance < 100) {
       if (!character.hasStaff) {
-        setDialogMessage('Aprendiz, para se tornar um mago é preciso muita dedicação e poderes MATEMÁTICOS. Por isso, resolva as equações a seguir e se torne um mago e adquira seu cajado!');
+        setDialogMessage(
+          'Aprendiz, para se tornar um mago é preciso muita dedicação e poderes MATEMÁTICOS. Por isso, resolva as equações a seguir e se torne um mago e adquira seu cajado!'
+        );
         setShowDialog(true);
       } else {
         toast.success('Parabéns! Você conquistou seu cajado! Agora enfrente os desafios!');
@@ -66,7 +71,6 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       }
     }
 
-    // Check if near book in library
     if (inLibrary && distance < 100) {
       if (questionsAnswered === 0) {
         setCurrentQuestion(generateAreaQuestion('rectangle'));
@@ -91,9 +95,10 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
       setTimeout(() => {
         setCharacter({ ...character, hasStaff: true });
         setInLibrary(false);
-        // Adiciona diálogo de parabéns quando voltar
         setTimeout(() => {
-          setDialogMessage('Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!');
+          setDialogMessage(
+            'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para iniciar sua jornada!'
+          );
           setShowDialog(true);
         }, 500);
       }, 2000);
@@ -110,56 +115,74 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
     setShowDialog(false);
     if (!character.hasStaff && !inLibrary) {
       setInLibrary(true);
-      toast('Você foi transportado para a Biblioteca!');
+      toast('Você foi teletransportado para a Biblioteca!');
     }
   };
 
-  // Função que não faz nada no tutorial (ajuda sem penalidade)
   const handleHelpUsed = () => {
     toast.info('💡 Dica exibida! No tutorial você pode usar ajuda sem penalidades.');
   };
 
   return (
-    <div className="fixed inset-0 overflow-hidden" style={{
-      background: inLibrary 
-        ? 'linear-gradient(180deg, #4a1a1a 0%, #2a0a0a 100%)'
-        : 'linear-gradient(180deg, #1a4a1a 0%, #0a2a0a 100%)'
-    }}>
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-        backgroundSize: '50px 50px'
-      }} />
+    <div
+      className="fixed inset-0 overflow-hidden"
+      style={
+        inLibrary
+          ? {
+              backgroundImage: `url(${bibliotecaBg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              imageRendering: 'pixelated', // Para pixel art ficar nítido
+            }
+          : {
+              background: 'linear-gradient(180deg, #1a4a1a 0%, #0a2a0a 100%)',
+            }
+      }
+    >
+      {/* Overlay escuro sobre o fundo */}
+      {inLibrary && <div className="absolute inset-0 bg-black/20" />}
 
-      {/* Central NPC/Object */}
-      <div 
-        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-6xl animate-float"
-        style={{ 
-          left: '50%', 
-          top: '50%'
-        }}
+      {/* Grid pattern (opcional - remova se atrapalhar a pixel art) */}
+      {!inLibrary && (
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage:
+              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+      )}
+
+      {/* NPC/Objeto central */}
+      <div
+        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-6xl animate-float z-10"
+        style={{ left: '50%', top: '50%' }}
       >
         {inLibrary ? '📖' : '🧙‍♂️'}
       </div>
 
-      {/* Player character */}
+      {/* Personagem jogador */}
       <div
-        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-5xl transition-all duration-100 pixel-art"
+        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-5xl transition-all duration-100 pixel-art z-10"
         style={{
           left: character.position.x,
           top: character.position.y,
-          filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))'
+          filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))',
         }}
       >
         {character.hasStaff ? '🧙' : '🚶'}
       </div>
 
       {/* UI Overlay */}
-      <div className="absolute top-4 left-4 bg-card/80 backdrop-blur-sm p-4 rounded-lg border-2 border-primary">
+      <div className="absolute top-4 left-4 bg-card/80 backdrop-blur-sm p-4 rounded-lg border-2 border-primary z-20">
         <div className="text-xs space-y-2">
           <div>
             <span className="text-muted-foreground">Local:</span>{' '}
-            <span className="text-primary font-bold">{inLibrary ? 'BIBLIOTECA' : 'FLORESTA'}</span>
+            <span className="text-primary font-bold">
+              {inLibrary ? 'BIBLIOTECA' : 'FLORESTA'}
+            </span>
           </div>
           <div>
             <span className="text-muted-foreground">Cajado:</span>{' '}
@@ -176,11 +199,11 @@ export const TopDownGame = ({ onComplete, character, setCharacter, setShowCalcul
         </div>
       </div>
 
-      {/* Instructions */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-primary">
+      {/* Instruções */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-primary z-20">
         <p className="text-xs text-center">
-          <span className="text-primary font-bold">ESPAÇO</span> para interagir • 
-          <span className="text-primary font-bold"> WASD/Setas</span> para mover
+          <span className="text-primary font-bold">ESPAÇO</span> para interagir •{' '}
+          <span className="text-primary font-bold">WASD/Setas</span> para mover
         </p>
       </div>
 

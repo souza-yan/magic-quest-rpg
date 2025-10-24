@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 interface StageMapProps {
   currentStage: number;
   onComplete: () => void;
+  showRetryMessage?: boolean;
 }
 
 const stages = [
