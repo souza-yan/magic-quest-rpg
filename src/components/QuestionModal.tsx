@@ -18,7 +18,7 @@ interface QuestionModalProps {
 const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?: any }) => {
   if (!shape || !dimensions) return null;
 
-  const scale = 15;
+  const scale = 6; // Aumentado de 5 para 6 (20% maior)
 
   const renderShape = () => {
     switch (shape) {
@@ -34,11 +34,11 @@ const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?
               stroke="rgb(168, 85, 247)"
               strokeWidth="3"
             />
-            <text x={20 + (dimensions.width * scale) / 2} y="15" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">
-              {dimensions.width}cm
+            <text x={20 + (dimensions.width * scale) / 2} y="15" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">
+              {dimensions.width} cm
             </text>
-            <text x="10" y={20 + (dimensions.height * scale) / 2} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold" transform={`rotate(-90, 10, ${20 + (dimensions.height * scale) / 2})`}>
-              {dimensions.height}cm
+            <text x="10" y={20 + (dimensions.height * scale) / 2} textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" transform={`rotate(-90, 10, ${20 + (dimensions.height * scale) / 2})`}>
+              {dimensions.height} cm
             </text>
           </svg>
         );
@@ -56,8 +56,8 @@ const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?
               stroke="rgb(168, 85, 247)"
               strokeWidth="3"
             />
-            <text x={20 + side / 2} y="15" textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">
-              {dimensions.side}cm
+            <text x={20 + side / 2} y="15" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">
+              {dimensions.side} cm
             </text>
           </svg>
         );
@@ -73,8 +73,8 @@ const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?
               stroke="rgb(168, 85, 247)"
               strokeWidth="3"
             />
-            <text x={20 + triWidth / 2} y={triHeight + 40} textAnchor="middle" fill="white" fontSize="14" fontWeight="bold">
-              base: {dimensions.base}cm
+            <text x={20 + triWidth / 2} y={triHeight + 40} textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">
+              base: {dimensions.base} cm
             </text>
             <line 
               x1={(triWidth / 2) + 20} 
@@ -85,8 +85,8 @@ const ShapeVisualization = ({ shape, dimensions }: { shape?: string; dimensions?
               strokeWidth="2"
               strokeDasharray="5,5"
             />
-            <text x={(triWidth / 2) + 30} y={20 + triHeight / 2} fill="rgb(251, 146, 60)" fontSize="14" fontWeight="bold">
-              h: {dimensions.height}cm
+            <text x={(triWidth / 2) + 35} y={20 + triHeight / 2} fill="rgb(251, 146, 60)" fontSize="16" fontWeight="bold">
+              h: {dimensions.height} cm
             </text>
           </svg>
         );
@@ -274,26 +274,26 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in p-4">
-      <Card className="max-w-2xl w-full mx-auto p-8 bg-card border-4 border-primary animate-scale-in max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 animate-fade-in p-2 md:p-4">
+      <Card className="max-w-2xl w-full mx-auto p-4 md:p-8 bg-card border-4 border-primary animate-scale-in max-h-[90vh] overflow-y-auto">
         {spellType && (
-          <div className="text-center mb-4">
-            <span className="text-2xl">{spellType === 'water' ? '💧' : spellType === 'fire' ? '🔥' : '⚡'}</span>
-            <h3 className="text-sm font-bold text-primary mt-2">
+          <div className="text-center mb-3 md:mb-4">
+            <span className="text-xl md:text-2xl">{spellType === 'water' ? '💧' : spellType === 'fire' ? '🔥' : '⚡'}</span>
+            <h3 className="text-xs md:text-sm font-bold text-primary mt-2">
               {spellType === 'water' ? 'MAGIA DE ÁGUA' : spellType === 'fire' ? 'MAGIA DE FOGO' : 'MAGIA DE TROVÃO'}
             </h3>
           </div>
         )}
         
-        <div className="mb-6">
+        <div className="mb-4 md:mb-6">
           <div className="flex justify-between items-center mb-2">
-            <div className="text-xs text-muted-foreground">{question.type}</div>
+            <div className="text-[10px] md:text-xs text-muted-foreground">{question.type}</div>
             <HelpButton 
               formulaType={question.type} 
               onHelpUsed={onHelpUsed}
             />
           </div>
-          <h2 className="text-sm font-bold mb-4 text-foreground leading-relaxed">
+          <h2 className="text-xs md:text-sm font-bold mb-3 md:mb-4 text-foreground leading-relaxed">
             {question.question}
           </h2>
         </div>
@@ -302,34 +302,34 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
         <ShapeVisualization shape={question.shape} dimensions={question.dimensions} />
 
         {!showFeedback ? (
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             <Input
               type="text"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Digite sua resposta..."
-              className="text-center text-lg h-14 bg-input border-2 border-primary"
+              className="text-center text-base md:text-lg h-12 md:h-14 bg-input border-2 border-primary"
               autoFocus
             />
             <Button 
               onClick={handleSubmit}
-              className="w-full h-12 text-sm bg-primary hover:bg-primary/80"
+              className="w-full h-10 md:h-12 text-xs md:text-sm bg-primary hover:bg-primary/80"
               disabled={!answer}
             >
               CONFIRMAR RESPOSTA
             </Button>
           </div>
         ) : (
-          <div className={`text-center py-8 ${isCorrect ? 'animate-pulse-glow' : 'animate-shake'}`}>
-            <div className="text-6xl mb-4">
+          <div className={`text-center py-6 md:py-8 ${isCorrect ? 'animate-pulse-glow' : 'animate-shake'}`}>
+            <div className="text-5xl md:text-6xl mb-4">
               {isCorrect ? '✓' : '✗'}
             </div>
-            <h3 className={`text-lg font-bold ${isCorrect ? 'text-green-400' : 'text-destructive'}`}>
+            <h3 className={`text-base md:text-lg font-bold ${isCorrect ? 'text-green-400' : 'text-destructive'}`}>
               {isCorrect ? 'CORRETO!' : 'INCORRETO!'}
             </h3>
             {!isCorrect && (
-              <p className="text-sm text-muted-foreground mt-2">
+              <p className="text-xs md:text-sm text-muted-foreground mt-2">
                 A resposta correta era: {question.answer}
               </p>
             )}

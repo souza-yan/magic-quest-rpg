@@ -5,7 +5,6 @@ import { QuestionModal } from './QuestionModal';
 import { generateAreaQuestion } from '@/utils/mathQuestions';
 import { toast } from 'sonner';
 
-// Importa a imagem da biblioteca
 import bibliotecaBg from '@/img/Biblioteca.png';
 
 interface TopDownGameProps {
@@ -31,7 +30,7 @@ export const TopDownGame = ({
     const handleKeyPress = (e: KeyboardEvent) => {
       if (showDialog || currentQuestion) return;
 
-      const speed = 25;
+      const speed = window.innerWidth * 0.013; // 1.3% da largura da tela
       const newPos = { ...character.position };
 
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') newPos.y -= speed;
@@ -97,7 +96,7 @@ export const TopDownGame = ({
         setInLibrary(false);
         setTimeout(() => {
           setDialogMessage(
-            'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para iniciar sua jornada!'
+            'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!'
           );
           setShowDialog(true);
         }, 500);
@@ -115,7 +114,7 @@ export const TopDownGame = ({
     setShowDialog(false);
     if (!character.hasStaff && !inLibrary) {
       setInLibrary(true);
-      toast('Você foi teletransportado para a Biblioteca!');
+      toast('Você foi transportado para a Biblioteca!');
     }
   };
 
@@ -133,17 +132,15 @@ export const TopDownGame = ({
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              imageRendering: 'pixelated', // Para pixel art ficar nítido
+              imageRendering: 'pixelated',
             }
           : {
               background: 'linear-gradient(180deg, #1a4a1a 0%, #0a2a0a 100%)',
             }
       }
     >
-      {/* Overlay escuro sobre o fundo */}
       {inLibrary && <div className="absolute inset-0 bg-black/20" />}
 
-      {/* Grid pattern (opcional - remova se atrapalhar a pixel art) */}
       {!inLibrary && (
         <div
           className="absolute inset-0 opacity-10"
@@ -155,29 +152,34 @@ export const TopDownGame = ({
         />
       )}
 
-      {/* NPC/Objeto central */}
+      {/* NPC Central - Responsivo */}
       <div
-        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-6xl animate-float z-10"
-        style={{ left: '50%', top: '50%' }}
+        className="absolute transform -translate-x-1/2 -translate-y-1/2 animate-float z-10"
+        style={{ 
+          left: '50%', 
+          top: '50%',
+          fontSize: 'clamp(3rem, 6vw, 6rem)'
+        }}
       >
         {inLibrary ? '📖' : '🧙‍♂️'}
       </div>
 
-      {/* Personagem jogador */}
+      {/* Personagem - Responsivo */}
       <div
-        className="absolute transform -translate-x-1/2 -translate-y-1/2 text-5xl transition-all duration-100 pixel-art z-10"
+        className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-100 pixel-art z-10"
         style={{
           left: character.position.x,
           top: character.position.y,
           filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))',
+          fontSize: 'clamp(2.5rem, 5vw, 5rem)'
         }}
       >
         {character.hasStaff ? '🧙' : '🚶'}
       </div>
 
-      {/* UI Overlay */}
-      <div className="absolute top-4 left-4 bg-card/80 backdrop-blur-sm p-4 rounded-lg border-2 border-primary z-20">
-        <div className="text-xs space-y-2">
+      {/* UI Overlay - Responsivo */}
+      <div className="absolute top-4 right-4 bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border-2 border-primary z-20 max-w-[200px] md:max-w-none">
+        <div className="text-[10px] md:text-xs space-y-1 md:space-y-2">
           <div>
             <span className="text-muted-foreground">Local:</span>{' '}
             <span className="text-primary font-bold">
@@ -199,9 +201,9 @@ export const TopDownGame = ({
         </div>
       </div>
 
-      {/* Instruções */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-6 py-3 rounded-full border-2 border-primary z-20">
-        <p className="text-xs text-center">
+      {/* Instruções - Responsivo */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full border-2 border-primary z-20">
+        <p className="text-[10px] md:text-xs text-center">
           <span className="text-primary font-bold">ESPAÇO</span> para interagir •{' '}
           <span className="text-primary font-bold">WASD/Setas</span> para mover
         </p>

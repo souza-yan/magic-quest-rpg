@@ -77,7 +77,7 @@ export const Calculator = () => {
   };
 
   return (
-    <Card className="fixed bottom-4 right-4 p-3 bg-card/95 backdrop-blur-sm border-2 border-primary z-50 w-64 shadow-xl">
+    <Card className="fixed bottom-4 left-4 p-3 bg-card/95 backdrop-blur-sm border-2 border-primary z-50 w-64 shadow-xl">
       <div className="text-xs text-primary mb-2 font-bold text-center">🧮 CALCULADORA</div>
       
       {/* Display */}

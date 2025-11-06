@@ -185,9 +185,9 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
     <div className={`fixed inset-0 bg-gradient-to-b ${enemyData.background} overflow-hidden`}>
       {/* Battle UI */}
       <div className="relative h-full flex flex-col">
-        {/* Indicador de Fase */}
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm px-6 py-2 rounded-full border-2 border-red-500 z-10">
-          <p className="text-white text-sm font-bold">
+        {/* Indicador de Fase - Responsivo */}
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/70 backdrop-blur-sm px-4 md:px-6 py-2 rounded-full border-2 border-red-500 z-10">
+          <p className="text-white text-xs md:text-sm font-bold">
             ⚔️ FASE {currentStage} - {enemy.name.toUpperCase()}
           </p>
         </div>

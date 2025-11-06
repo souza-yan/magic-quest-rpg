@@ -14,7 +14,7 @@ const stages = [
   { id: 5, name: 'Boss Final', icon: '👑', x: 85, y: 20 }
 ];
 
-export const StageMap = ({ currentStage, onComplete }: StageMapProps) => {
+export const StageMap = ({ currentStage, onComplete, showRetryMessage = false }: StageMapProps) => {
   const [playerPosition, setPlayerPosition] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
 
@@ -51,14 +51,21 @@ export const StageMap = ({ currentStage, onComplete }: StageMapProps) => {
         <div className="absolute top-64 left-1/3 text-7xl animate-float" style={{ animationDelay: '2s' }}>☁️</div>
       </div>
 
-      {/* Título */}
-      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-center z-20">
-        <h1 className="text-4xl font-bold text-white mb-2" style={{
+      {/* Título - Responsivo */}
+      <div className="absolute top-4 md:top-8 left-1/2 transform -translate-x-1/2 text-center z-20 px-4">
+        <h1 className="text-2xl md:text-4xl font-bold text-white mb-2" style={{
           textShadow: '0 0 20px rgba(168, 85, 247, 1), 0 0 40px rgba(168, 85, 247, 0.8)'
         }}>
           JORNADA MATEMÁGICA
         </h1>
-        <p className="text-lg text-purple-300">Avançando para a próxima fase...</p>
+        {showRetryMessage ? (
+          <div className="mt-4 bg-red-900/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-lg border-2 border-red-500 animate-pulse">
+            <p className="text-base md:text-xl text-white font-bold">💪 Não desista!</p>
+            <p className="text-xs md:text-sm text-red-200 mt-1">A prática leva à perfeição. Tente novamente!</p>
+          </div>
+        ) : (
+          <p className="text-sm md:text-lg text-purple-300">Avançando para a próxima fase...</p>
+        )}
       </div>
 
       {/* Container do mapa */}

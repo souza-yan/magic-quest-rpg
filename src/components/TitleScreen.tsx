@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import titleBg from '../img/TitleScreen.jpeg'; // ← caminho relativo correto
+import titleBg from '../img/TitleScreen.jpeg';
 
 interface TitleScreenProps {
   onStart: () => void;
@@ -14,7 +14,6 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
         backgroundImage: `url(${titleBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        //backgroundRepeat: 'no-repeat',
       }}
     >
       <div className="absolute inset-0 bg-black/60" />
@@ -28,11 +27,11 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
         }}
       />
 
-      <div className="relative z-10 text-center space-y-12 p-8">
-        <div className="space-y-4 animate-float">
-          <div className="text-6xl mb-4">🧙‍♂️✨</div>
+      <div className="relative z-10 text-center space-y-8 md:space-y-12 p-4 md:p-8 max-w-4xl mx-auto">
+        <div className="space-y-3 md:space-y-4 animate-float">
+          <div className="text-4xl md:text-6xl mb-4">🧙‍♂️✨</div>
           <h1
-            className="text-6xl font-bold text-stroke"
+            className="text-4xl md:text-6xl font-bold text-stroke"
             style={{
               background:
                 'linear-gradient(135deg, #a855f7 0%, #fb923c 50%, #ef4444 100%)',
@@ -43,15 +42,15 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
           >
             MATEMÁGICO
           </h1>
-          <p className="text-2xl text-purple-200 max-w-md mx-auto leading-relaxed">
+          <p className="text-base md:text-2xl text-purple-200 max-w-md mx-auto leading-relaxed px-4">
             Domine os poderes da matemática e torne-se um grande mago!
           </p>
         </div>
 
-        <div className="space-y-4 max-w-xs mx-auto">
+        <div className="space-y-3 md:space-y-4 max-w-xs mx-auto">
           <Button
             onClick={onStart}
-            className="w-full h-16 text-lg bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400 shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105"
+            className="w-full h-14 md:h-16 text-base md:text-lg bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 border-2 border-purple-400 shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105"
           >
             ▶ JOGAR
           </Button>
@@ -59,13 +58,13 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
           <Button
             onClick={onCredits}
             variant="outline"
-            className="w-full h-12 text-sm border-2 border-purple-600 text-purple-300 hover:bg-purple-900/50"
+            className="w-full h-10 md:h-12 text-xs md:text-sm border-2 border-purple-600 text-purple-300 hover:bg-purple-900/50"
           >
             CRÉDITOS
           </Button>
         </div>
 
-        <div className="text-3xl text-purple-400/60 animate-pulse">
+        <div className="text-xl md:text-3xl text-purple-400/60 animate-pulse px-4">
           Pressione ESPAÇO • Use WASD ou setas para mover
         </div>
       </div>
