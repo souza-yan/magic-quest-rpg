@@ -10,8 +10,8 @@ const stages = [
   { id: 1, name: 'Tutorial', icon: '📚', x: 15, y: 80 },
   { id: 2, name: 'Batalha 1', icon: '👹', x: 30, y: 60 },
   { id: 3, name: 'Batalha 2', icon: '🦇', x: 50, y: 50 },
-  { id: 4, name: 'Batalha 3', icon: '🐉', x: 70, y: 40 },
-  { id: 5, name: 'Boss Final', icon: '👑', x: 85, y: 20 }
+  { id: 4, name: 'Batalha 3', icon: '⚔️', x: 70, y: 40 },
+  { id: 5, name: 'Boss Final', icon: '🐉', x: 85, y: 20 }
 ];
 
 export const StageMap = ({ currentStage, onComplete, showRetryMessage = false }: StageMapProps) => {
@@ -181,13 +181,13 @@ export const StageMap = ({ currentStage, onComplete, showRetryMessage = false }:
         </svg>
       </div>
 
-      {/* Progresso na parte inferior */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm px-8 py-4 rounded-full border-2 border-purple-500">
-        <p className="text-white text-lg font-bold">
+      {/* Progresso - Responsivo */}
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm px-6 md:px-8 py-3 md:py-4 rounded-full border-2 border-purple-500">
+        <p className="text-white text-sm md:text-lg font-bold">
           Fase {currentStage} de {stages.length}
         </p>
         {canProceed && (
-          <p className="text-yellow-400 text-sm mt-2 animate-pulse">
+          <p className="text-yellow-400 text-xs md:text-sm mt-2 animate-pulse">
             Pressione ESPAÇO para continuar
           </p>
         )}

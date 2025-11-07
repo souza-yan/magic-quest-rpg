@@ -4,11 +4,12 @@ import { CreditsScreen } from '@/components/CreditsScreen';
 import { TopDownGame } from '@/components/TopDownGame';
 import { BattleScene } from '@/components/BattleScene';
 import { StageMap } from '@/components/StageMap';
+import { VictoryScreen } from '@/components/VictoryScreen';
 import { Calculator } from '@/components/Calculator';
 import { GameState, Character } from '@/types/game';
 import { toast } from 'sonner';
 
-type ExtendedGameState = GameState | 'stagemap';
+type ExtendedGameState = GameState | 'stagemap' | 'victory';
 
 const Index = () => {
   const [gameState, setGameState] = useState<ExtendedGameState>('title');

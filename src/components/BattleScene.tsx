@@ -63,19 +63,19 @@ const enemies = [
   },
   {
     stage: 4,
-    name: 'Dragão Ancião',
+    name: 'Cavaleiro das Trevas',
     hp: 300,
     damage: 40,
-    sprite: '🐉',
-    background: 'from-red-950 via-orange-950 to-black'
+    sprite: '⚔️',
+    background: 'from-blue-950 via-black to-blue-900'
   },
   {
     stage: 5,
-    name: 'Lorde das Trevas',
+    name: 'Dragão Vermelho Ancião',
     hp: 400,
     damage: 50,
-    sprite: '👑',
-    background: 'from-black via-red-950 to-purple-950'
+    sprite: '🐉',
+    background: 'from-red-900 via-orange-950 to-black'
   }
 ];
 
@@ -192,22 +192,25 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
           </p>
         </div>
 
-        {/* Battle Area */}
-        <div className="flex-1 relative flex items-center justify-between px-20">
+        {/* Battle Area - Responsivo */}
+        <div className="flex-1 relative flex items-center justify-between px-8 md:px-20">
           {/* Player */}
           <div className="relative">
-            <div className={`text-8xl transition-all duration-300 ${attacking ? 'animate-attack' : ''} ${player.hp <= 0 ? 'opacity-30 grayscale' : ''}`}>
+            <div 
+              className={`transition-all duration-300 ${attacking ? 'animate-attack' : ''} ${player.hp <= 0 ? 'opacity-30 grayscale' : ''}`}
+              style={{ fontSize: 'clamp(4rem, 8vw, 8rem)' }}
+            >
               🧙‍♂️
             </div>
-            <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-48">
-              <div className="text-xs text-center mb-2 font-bold text-primary">VOCÊ</div>
+            <div className="absolute -top-12 md:-top-16 left-1/2 transform -translate-x-1/2 w-32 md:w-48">
+              <div className="text-[10px] md:text-xs text-center mb-2 font-bold text-primary">VOCÊ</div>
               <div className="bg-black/50 rounded-full p-1 border-2 border-primary">
                 <div 
-                  className="h-4 bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
+                  className="h-3 md:h-4 bg-gradient-to-r from-green-500 to-green-400 rounded-full transition-all duration-500"
                   style={{ width: `${(player.hp / player.maxHp) * 100}%` }}
                 />
               </div>
-              <div className="text-xs text-center mt-1 text-muted-foreground">
+              <div className="text-[10px] md:text-xs text-center mt-1 text-muted-foreground">
                 HP: {player.hp}/{player.maxHp}
               </div>
             </div>
@@ -215,52 +218,55 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
 
           {/* Enemy */}
           <div className="relative">
-            <div className={`text-8xl transition-all duration-300 ${enemyAttacking ? 'animate-shake' : ''} ${enemy.hp <= 0 ? 'opacity-30 grayscale' : ''}`}>
+            <div 
+              className={`transition-all duration-300 ${enemyAttacking ? 'animate-shake' : ''} ${enemy.hp <= 0 ? 'opacity-30 grayscale' : ''}`}
+              style={{ fontSize: 'clamp(4rem, 8vw, 8rem)' }}
+            >
               {enemy.sprite}
             </div>
-            <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-48">
-              <div className="text-xs text-center mb-2 font-bold text-destructive">{enemy.name}</div>
+            <div className="absolute -top-12 md:-top-16 left-1/2 transform -translate-x-1/2 w-32 md:w-48">
+              <div className="text-[10px] md:text-xs text-center mb-2 font-bold text-destructive">{enemy.name}</div>
               <div className="bg-black/50 rounded-full p-1 border-2 border-destructive">
                 <div 
-                  className="h-4 bg-gradient-to-r from-red-500 to-red-400 rounded-full transition-all duration-500"
+                  className="h-3 md:h-4 bg-gradient-to-r from-red-500 to-red-400 rounded-full transition-all duration-500"
                   style={{ width: `${(enemy.hp / enemy.maxHp) * 100}%` }}
                 />
               </div>
-              <div className="text-xs text-center mt-1 text-muted-foreground">
+              <div className="text-[10px] md:text-xs text-center mt-1 text-muted-foreground">
                 HP: {enemy.hp}/{enemy.maxHp}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Spell Cards */}
-        <div className="bg-gradient-to-t from-black to-transparent p-8">
-          <div className="flex gap-4 justify-center">
+        {/* Spell Cards - Responsivo */}
+        <div className="bg-gradient-to-t from-black to-transparent p-4 md:p-8">
+          <div className="flex gap-2 md:gap-4 justify-center flex-wrap">
             {spells.map((spell) => (
               <Button
                 key={spell.type}
                 onClick={() => handleSpellSelect(spell)}
                 disabled={!isPlayerTurn || attacking || enemyAttacking}
                 className={`
-                  h-32 w-40 flex flex-col items-center justify-center gap-2
+                  h-24 w-28 md:h-32 md:w-40 flex flex-col items-center justify-center gap-1 md:gap-2
                   bg-gradient-to-br ${spell.color}
                   hover:scale-105 transition-all duration-300
                   disabled:opacity-50 disabled:cursor-not-allowed
-                  border-4 border-white/20
+                  border-2 md:border-4 border-white/20
                   ${!isPlayerTurn ? 'grayscale' : ''}
                 `}
               >
-                <span className="text-4xl">{spell.icon}</span>
-                <span className="text-xs font-bold">{spell.name}</span>
-                <span className="text-[10px] opacity-80 text-center leading-tight">
+                <span className="text-2xl md:text-4xl">{spell.icon}</span>
+                <span className="text-[10px] md:text-xs font-bold">{spell.name}</span>
+                <span className="text-[8px] md:text-[10px] opacity-80 text-center leading-tight">
                   {spell.description}
                 </span>
               </Button>
             ))}
           </div>
           
-          <div className="text-center mt-4">
-            <p className="text-xs text-muted-foreground">
+          <div className="text-center mt-3 md:mt-4">
+            <p className="text-[10px] md:text-xs text-muted-foreground">
               {isPlayerTurn ? (
                 <span className="text-primary font-bold animate-pulse">▶ SEU TURNO - Escolha uma magia</span>
               ) : (
