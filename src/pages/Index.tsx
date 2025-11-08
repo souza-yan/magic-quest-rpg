@@ -8,6 +8,7 @@ import { VictoryScreen } from '@/components/VictoryScreen';
 import { Calculator } from '@/components/Calculator';
 import { GameState, Character } from '@/types/game';
 import { toast } from 'sonner';
+import { questionManager } from '@/utils/questionManager';
 
 type ExtendedGameState = GameState | 'stagemap' | 'victory';
 
@@ -24,6 +25,8 @@ const Index = () => {
   const [showRetryMessage, setShowRetryMessage] = useState(false);
 
   const handleStart = () => {
+    // Reset questions when starting a new game so session starts fresh
+    questionManager.reset();
     setGameState('forest');
     setCurrentStage(1);
     setCharacter({

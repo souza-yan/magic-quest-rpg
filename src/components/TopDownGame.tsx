@@ -6,6 +6,7 @@ import { tutorialQuestions } from "@/utils/questions/mathQuestionsTutorial";
 import { toast } from 'sonner';
 
 import bibliotecaBg from '@/img/Biblioteca.png';
+import forestBg from '@/img/forest.webp';
 
 interface TopDownGameProps {
   onComplete: () => void;
@@ -132,21 +133,18 @@ if (inLibrary && distance < 100) {
               imageRendering: 'pixelated',
             }
           : {
-              background: 'linear-gradient(180deg, #1a4a1a 0%, #0a2a0a 100%)',
+              backgroundImage: `url(${forestBg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              imageRendering: 'pixelated',
             }
       }
     >
       {inLibrary && <div className="absolute inset-0 bg-black/20" />}
 
       {!inLibrary && (
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage:
-              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-          }}
-        />
+        <div className="absolute inset-0 bg-black/30" />
       )}
 
       {/* NPC Central - Responsivo */}

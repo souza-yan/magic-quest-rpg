@@ -8,10 +8,11 @@ export const allQuestions = [
   ...mathQuestionsRaio,
 ];
 
+import { questionManager } from "../questionManager";
+
 export function getRandomQuestionByDifficulty(
   difficulty: "agua" | "fogo" | "raio"
 ) {
   const filtered = allQuestions.filter(q => q.dificuldade === difficulty);
-  const i = Math.floor(Math.random() * filtered.length);
-  return filtered[i];
+  return questionManager.getRandomQuestion(filtered);
 }

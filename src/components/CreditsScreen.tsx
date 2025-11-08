@@ -13,7 +13,7 @@ export const CreditsScreen = ({ onBack }: CreditsScreenProps) => {
         <div className="space-y-6 text-sm">
           <div>
             <h2 className="text-lg text-secondary mb-2">Desenvolvimento</h2>
-            <p className="text-muted-foreground">Criado com Lovable AI</p>
+            <p className="text-muted-foreground">Yan Souza Martins</p>
           </div>
           
           <div>

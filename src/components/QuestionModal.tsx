@@ -289,13 +289,19 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
           <div className="flex justify-between items-center mb-2">
             <div className="text-[10px] md:text-xs text-muted-foreground">{question.dificuldade}</div>
             <HelpButton 
-              formulaType={question.dificuldade} 
+              formulaType={question.dificuldade}
+              dica={question.dica} 
               onHelpUsed={onHelpUsed}
             />
           </div>
           <h2 className="text-xs md:text-sm font-bold mb-3 md:mb-4 text-foreground leading-relaxed">
             {question.pergunta}
           </h2>
+          {question.imagem && (
+            <div className="mb-4 rounded-lg overflow-hidden border-2 border-primary/30">
+              <img src={question.imagem} alt="Imagem da questão" className="w-full" />
+            </div>
+          )}
         </div>
 
         {!showFeedback ? (

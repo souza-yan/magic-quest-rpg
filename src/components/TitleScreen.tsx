@@ -29,7 +29,7 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
 
       <div className="relative z-10 text-center space-y-8 md:space-y-12 p-4 md:p-8 max-w-4xl mx-auto">
         <div className="space-y-3 md:space-y-4 animate-float">
-          <div className="text-4xl md:text-6xl mb-4">🧙‍♂️✨</div>
+          <div className="text-4xl md:text-6xl mb-4"></div><br /> <br /> <br />
           <h1
             className="text-4xl md:text-6xl font-bold text-stroke"
             style={{
@@ -40,10 +40,10 @@ export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
               backgroundClip: 'text',
             }}
           >
-            MATEMÁGICO
+          
           </h1>
           <p className="text-base md:text-2xl text-purple-200 max-w-md mx-auto leading-relaxed px-4">
-            Domine os poderes da matemática e torne-se um grande mago!
+            
           </p>
         </div>
 

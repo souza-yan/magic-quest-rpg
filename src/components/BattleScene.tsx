@@ -81,7 +81,7 @@ const enemies = [
 ];
 
 export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setShowCalculator, currentStage }: BattleSceneProps) => {
-  // Pega o inimigo baseado na fase atual
+
   const enemyData = enemies.find(e => e.stage === currentStage) || enemies[0];
   
   const [enemy, setEnemy] = useState<Enemy>({
