@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Question } from '@/types/game';
-import { validateAnswer } from '@/utils/mathQuestions';
+import { validateAnswer } from '@/utils/validateAnswer';
 import { HelpButton } from './HelpButton';
 
 interface QuestionModalProps {
@@ -252,7 +252,7 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
   const [isCorrect, setIsCorrect] = useState(false);
 
   const handleSubmit = () => {
-    const correct = validateAnswer(answer, question.answer);
+    const correct = validateAnswer(answer, question.resposta);
     setIsCorrect(correct);
     setShowFeedback(true);
     
@@ -287,19 +287,16 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
         
         <div className="mb-4 md:mb-6">
           <div className="flex justify-between items-center mb-2">
-            <div className="text-[10px] md:text-xs text-muted-foreground">{question.type}</div>
+            <div className="text-[10px] md:text-xs text-muted-foreground">{question.dificuldade}</div>
             <HelpButton 
-              formulaType={question.type} 
+              formulaType={question.dificuldade} 
               onHelpUsed={onHelpUsed}
             />
           </div>
           <h2 className="text-xs md:text-sm font-bold mb-3 md:mb-4 text-foreground leading-relaxed">
-            {question.question}
+            {question.pergunta}
           </h2>
         </div>
-
-        {/* Visualização da Figura Geométrica */}
-        <ShapeVisualization shape={question.shape} dimensions={question.dimensions} />
 
         {!showFeedback ? (
           <div className="space-y-3 md:space-y-4">
@@ -330,7 +327,7 @@ export const QuestionModal = ({ question, onCorrect, onIncorrect, spellType, isT
             </h3>
             {!isCorrect && (
               <p className="text-xs md:text-sm text-muted-foreground mt-2">
-                A resposta correta era: {question.answer}
+                A resposta correta era: {question.resposta}
               </p>
             )}
           </div>

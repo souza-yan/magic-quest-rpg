@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Character, Enemy, Spell } from '@/types/game';
 import { QuestionModal } from './QuestionModal';
 import { Button } from '@/components/ui/button';
-import { generateEasyQuestion, generateMediumQuestion, generateHardQuestion } from '@/utils/mathQuestions';
+import { getRandomQuestionByDifficulty } from "@/utils/questions/allQuestions";
+
 import { toast } from 'sonner';
 
 interface BattleSceneProps {
@@ -115,11 +116,13 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
     setSelectedSpell(spell);
     setUsedHelp(false);
     
-    const question = spell.difficulty === 'easy' 
-      ? generateEasyQuestion()
-      : spell.difficulty === 'medium'
-      ? generateMediumQuestion()
-      : generateHardQuestion();
+    const question = getRandomQuestionByDifficulty(
+  spell.type === "water"
+    ? "agua"
+    : spell.type === "fire"
+    ? "fogo"
+    : "raio"
+);
     
     setCurrentQuestion(question);
     setShowCalculator(true);

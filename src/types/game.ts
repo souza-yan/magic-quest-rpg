@@ -33,12 +33,14 @@ export interface Spell {
 }
 
 export interface Question {
-  question: string;
-  answer: number;
-  type: string;
-  shape?: string;
-  dimensions?: any;
+  id: number;
+  pergunta: string;
+  resposta: number | string;
+  dica?: string;
+  imagem?: string | null;
+  dificuldade: "agua" | "fogo" | "raio";
 }
+
 
 export interface DialogMessage {
   text: string;

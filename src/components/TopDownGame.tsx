@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Character } from '@/types/game';
 import { DialogBox } from './DialogBox';
 import { QuestionModal } from './QuestionModal';
-import { generateAreaQuestion } from '@/utils/mathQuestions';
+import { tutorialQuestions } from "@/utils/questions/mathQuestionsTutorial";
 import { toast } from 'sonner';
 
 import bibliotecaBg from '@/img/Biblioteca.png';
@@ -70,39 +70,36 @@ export const TopDownGame = ({
       }
     }
 
-    if (inLibrary && distance < 100) {
-      if (questionsAnswered === 0) {
-        setCurrentQuestion(generateAreaQuestion('rectangle'));
-        setShowCalculator(true);
-      } else if (questionsAnswered === 1) {
-        setCurrentQuestion(generateAreaQuestion('triangle'));
+if (inLibrary && distance < 100) {
+      if (questionsAnswered < tutorialQuestions.length) {
+        setCurrentQuestion(tutorialQuestions[questionsAnswered]);
         setShowCalculator(true);
       }
     }
   };
 
   const handleCorrectAnswer = () => {
-    const newAnswered = questionsAnswered + 1;
-    setQuestionsAnswered(newAnswered);
-    setCurrentQuestion(null);
-    setShowCalculator(false);
+  const newAnswered = questionsAnswered + 1;
+  setQuestionsAnswered(newAnswered);
+  setCurrentQuestion(null);
+  setShowCalculator(false);
 
-    if (newAnswered === 1) {
-      toast.success('Ótimo! Você criou o cajado!');
-    } else if (newAnswered === 2) {
-      toast.success('Perfeito! A pedra mágica foi criada!');
+  if (newAnswered === 1) {
+    toast.success('Ótimo! Você criou o cajado!');
+  } else if (newAnswered === 2) {
+    toast.success('Perfeito! A pedra mágica foi criada!');
+    setTimeout(() => {
+      setCharacter({ ...character, hasStaff: true });
+      setInLibrary(false);
       setTimeout(() => {
-        setCharacter({ ...character, hasStaff: true });
-        setInLibrary(false);
-        setTimeout(() => {
-          setDialogMessage(
-            'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!'
-          );
-          setShowDialog(true);
-        }, 500);
-      }, 2000);
-    }
-  };
+        setDialogMessage(
+          'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!'
+        );
+        setShowDialog(true);
+      }, 500);
+    }, 2000);
+  }
+};
 
   const handleIncorrectAnswer = () => {
     setCurrentQuestion(null);
