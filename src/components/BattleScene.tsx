@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { getRandomQuestionByDifficulty } from "@/utils/questions/allQuestions";
 
 import { toast } from 'sonner';
+import waterAtk from '@/img/Agua finalizado.gif';
+import fireAtk from '@/img/Fogo definitivo.gif';
+import thunderAtk from '@/img/Trovao definitivo.gif';
 
 interface BattleSceneProps {
   character: Character;
@@ -200,10 +203,14 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
           {/* Player */}
           <div className="relative">
             <div 
-              className={`transition-all duration-300 ${attacking ? 'animate-attack' : ''} ${player.hp <= 0 ? 'opacity-30 grayscale' : ''}`}
-              style={{ fontSize: 'clamp(4rem, 8vw, 8rem)' }}
+              className={`transition-all duration-300 ${player.hp <= 0 ? 'opacity-30 grayscale' : ''}`}
+              style={{ width: 'clamp(4rem, 8vw, 8rem)', height: 'auto' }}
             >
-              🧙‍♂️
+              {player.hasStaff ? (
+                <img src="/Maguinho.gif" alt="Player" style={{ width: '100%', height: 'auto' }} />
+              ) : (
+                <div style={{ fontSize: 'clamp(4rem, 8vw, 8rem)' }}>🧙‍♂️</div>
+              )}
             </div>
             <div className="absolute -top-12 md:-top-16 left-1/2 transform -translate-x-1/2 w-32 md:w-48">
               <div className="text-[10px] md:text-xs text-center mb-2 font-bold text-primary">VOCÊ</div>
@@ -279,6 +286,25 @@ export const BattleScene = ({ character: playerChar, onVictory, onDefeat, setSho
           </div>
         </div>
       </div>
+
+      {/* Attack animation overlay - positioned over enemy, sized with enemy sprite */}
+      {attacking && selectedSpell && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-end px-8 md:px-20 z-40">
+          <div style={{ width: 'clamp(4rem, 8vw, 8rem)', height: 'auto', transform: 'translateY(-60px)' }}>
+            <img
+              src={
+                selectedSpell.type === 'water'
+                  ? waterAtk
+                  : selectedSpell.type === 'fire'
+                  ? fireAtk
+                  : thunderAtk
+              }
+              alt="Ataque"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
+        </div>
+      )}
 
       {currentQuestion && (
         <QuestionModal

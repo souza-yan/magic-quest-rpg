@@ -5,8 +5,11 @@ import { QuestionModal } from './QuestionModal';
 import { tutorialQuestions } from "@/utils/questions/mathQuestionsTutorial";
 import { toast } from 'sonner';
 
-import bibliotecaBg from '@/img/Biblioteca.png';
+import bibliotecaBg from '@/img/BibliotecaHD.png';
 import forestBg from '@/img/forest.webp';
+import bookImage from '@/img/Livro.png';
+
+const mageGif = '/Maguinho.gif';
 
 interface TopDownGameProps {
   onComplete: () => void;
@@ -31,7 +34,7 @@ export const TopDownGame = ({
     const handleKeyPress = (e: KeyboardEvent) => {
       if (showDialog || currentQuestion) return;
 
-      const speed = window.innerWidth * 0.013; // 1.3% da largura da tela
+      const speed = window.innerWidth * 0.013;
       const newPos = { ...character.position };
 
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') newPos.y -= speed;
@@ -71,7 +74,7 @@ export const TopDownGame = ({
       }
     }
 
-if (inLibrary && distance < 100) {
+    if (inLibrary && distance < 100) {
       if (questionsAnswered < tutorialQuestions.length) {
         setCurrentQuestion(tutorialQuestions[questionsAnswered]);
         setShowCalculator(true);
@@ -80,27 +83,27 @@ if (inLibrary && distance < 100) {
   };
 
   const handleCorrectAnswer = () => {
-  const newAnswered = questionsAnswered + 1;
-  setQuestionsAnswered(newAnswered);
-  setCurrentQuestion(null);
-  setShowCalculator(false);
+    const newAnswered = questionsAnswered + 1;
+    setQuestionsAnswered(newAnswered);
+    setCurrentQuestion(null);
+    setShowCalculator(false);
 
-  if (newAnswered === 1) {
-    toast.success('Ótimo! Você criou o cajado!');
-  } else if (newAnswered === 2) {
-    toast.success('Perfeito! A pedra mágica foi criada!');
-    setTimeout(() => {
-      setCharacter({ ...character, hasStaff: true });
-      setInLibrary(false);
+    if (newAnswered === 1) {
+      toast.success('Ótimo! Você criou o cajado!');
+    } else if (newAnswered === 2) {
+      toast.success('Perfeito! A pedra mágica foi criada!');
       setTimeout(() => {
-        setDialogMessage(
-          'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!'
-        );
-        setShowDialog(true);
-      }, 500);
-    }, 2000);
-  }
-};
+        setCharacter({ ...character, hasStaff: true });
+        setInLibrary(false);
+        setTimeout(() => {
+          setDialogMessage(
+            'Parabéns, jovem aprendiz! Você dominou os fundamentos da matemática e agora porta o Cajado Arcano! Com ele, você poderá enfrentar criaturas poderosas. Aproxime-se de mim quando estiver pronto para sua primeira batalha!'
+          );
+          setShowDialog(true);
+        }, 500);
+      }, 2000);
+    }
+  };
 
   const handleIncorrectAnswer = () => {
     setCurrentQuestion(null);
@@ -112,6 +115,10 @@ if (inLibrary && distance < 100) {
     setShowDialog(false);
     if (!character.hasStaff && !inLibrary) {
       setInLibrary(true);
+      setCharacter({
+        ...character,
+        position: { x: window.innerWidth * 0.1, y: window.innerHeight * 0.85 }
+      });
       toast('Você foi transportado para a Biblioteca!');
     }
   };
@@ -142,37 +149,56 @@ if (inLibrary && distance < 100) {
       }
     >
       {inLibrary && <div className="absolute inset-0 bg-black/20" />}
+      {!inLibrary && <div className="absolute inset-0 bg-black/30" />}
 
-      {!inLibrary && (
-        <div className="absolute inset-0 bg-black/30" />
-      )}
-
-      {/* NPC Central - Responsivo */}
+      {/* NPC Central - Livro ou Mago */}
       <div
         className="absolute transform -translate-x-1/2 -translate-y-1/2 animate-float z-10"
         style={{ 
           left: '50%', 
-          top: '50%',
-          fontSize: 'clamp(3rem, 6vw, 6rem)'
+          top: '50%'
         }}
       >
-        {inLibrary ? '📖' : '🧙‍♂️'}
+        {inLibrary ? (
+          <img 
+            src={bookImage} 
+            alt="Livro Mágico" 
+            style={{ 
+              width: 'clamp(60px, 8vw, 120px)',
+              height: 'auto',
+              filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.8))',
+            }} 
+          />
+        ) : (
+          <div style={{ fontSize: 'clamp(3rem, 6vw, 6rem)' }}>🧙‍♂️</div>
+        )}
       </div>
 
-      {/* Personagem - Responsivo */}
+      {/* Personagem - Emoji ou GIF */}
       <div
-        className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-100 pixel-art z-10"
+        className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-100 z-10"
         style={{
           left: character.position.x,
           top: character.position.y,
-          filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))',
-          fontSize: 'clamp(2.5rem, 5vw, 5rem)'
+          filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.8))'
         }}
       >
-        {character.hasStaff ? '🧙' : '🚶'}
+        {character.hasStaff ? (
+          <img 
+            src={mageGif} 
+            alt="Mago" 
+            style={{ 
+              width: 'clamp(50px, 8vw, 100px)',
+              height: 'auto',
+              imageRendering: 'pixelated'
+            }} 
+          />
+        ) : (
+          <div style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}>🚶</div>
+        )}
       </div>
 
-      {/* UI Overlay - Responsivo */}
+      {/* UI Overlay */}
       <div className="absolute top-4 right-4 bg-card/80 backdrop-blur-sm p-3 md:p-4 rounded-lg border-2 border-primary z-20 max-w-[200px] md:max-w-none">
         <div className="text-[10px] md:text-xs space-y-1 md:space-y-2">
           <div>
@@ -190,13 +216,13 @@ if (inLibrary && distance < 100) {
           {inLibrary && (
             <div>
               <span className="text-muted-foreground">Questões:</span>{' '}
-              <span className="text-secondary font-bold">{questionsAnswered}/2</span>
+              <span className="text-secondary font-bold">{questionsAnswered}/{tutorialQuestions.length}</span>
             </div>
           )}
         </div>
       </div>
 
-      {/* Instruções - Responsivo */}
+      {/* Instruções */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-card/80 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full border-2 border-primary z-20">
         <p className="text-[10px] md:text-xs text-center">
           <span className="text-primary font-bold">ESPAÇO</span> para interagir •{' '}

@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import titleBg from '../img/TitleScreen.jpeg';
+import titleBg from '@/img/TittleScreen.png';
 
 interface TitleScreenProps {
   onStart: () => void;
@@ -8,44 +8,18 @@ interface TitleScreenProps {
 
 export const TitleScreen = ({ onStart, onCredits }: TitleScreenProps) => {
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center"
-      style={{
-        backgroundImage: `url(${titleBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      <div className="absolute inset-0 bg-black/60" />
+    <div className="fixed inset-0 flex items-center justify-center bg-black">
+      {/* responsive full cover image but keep entire image visible */}
+  {/* contain on small screens, cover on large+ to avoid big side bars */}
+  <img src={titleBg} alt="Title Background" className="absolute inset-0 w-full h-full object-contain lg:object-cover" />
 
-      <div
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: '50px 50px',
-        }}
-      />
+  {/* soft side gradients to hide bars when image is contained on smaller viewports */}
+  <div className="absolute inset-y-0 left-0 w-20 lg:hidden bg-gradient-to-r from-black/80 to-transparent" />
+  <div className="absolute inset-y-0 right-0 w-20 lg:hidden bg-gradient-to-l from-black/80 to-transparent" />
+
+  <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 text-center space-y-8 md:space-y-12 p-4 md:p-8 max-w-4xl mx-auto">
-        <div className="space-y-3 md:space-y-4 animate-float">
-          <div className="text-4xl md:text-6xl mb-4"></div><br /> <br /> <br />
-          <h1
-            className="text-4xl md:text-6xl font-bold text-stroke"
-            style={{
-              background:
-                'linear-gradient(135deg, #a855f7 0%, #fb923c 50%, #ef4444 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-          
-          </h1>
-          <p className="text-base md:text-2xl text-purple-200 max-w-md mx-auto leading-relaxed px-4">
-            
-          </p>
-        </div>
 
         <div className="space-y-3 md:space-y-4 max-w-xs mx-auto">
           <Button
