@@ -22,7 +22,7 @@ const spells: Spell[] = [
     type: 'water',
     name: 'Magia de Água',
     difficulty: 'easy',
-    damage: { min: 20, max: 30 },
+    damage: { min: 50, max: 50 },
     icon: '💧',
     color: 'from-blue-500 to-cyan-500',
     description: 'Áreas simples • Dano baixo'
@@ -31,7 +31,7 @@ const spells: Spell[] = [
     type: 'fire',
     name: 'Magia de Fogo',
     difficulty: 'medium',
-    damage: { min: 40, max: 60 },
+    damage: { min: 100, max: 100 },
     icon: '🔥',
     color: 'from-orange-500 to-red-500',
     description: 'Áreas médias • Dano médio'
@@ -40,7 +40,7 @@ const spells: Spell[] = [
     type: 'thunder',
     name: 'Magia de Trovão',
     difficulty: 'hard',
-    damage: { min: 80, max: 100 },
+    damage: { min: 500, max: 500 },
     icon: '⚡',
     color: 'from-yellow-400 to-yellow-600',
     description: 'Áreas complexas • Dano alto'
