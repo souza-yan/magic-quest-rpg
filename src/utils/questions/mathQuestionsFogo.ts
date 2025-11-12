@@ -7,7 +7,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "36",
     "dica": "A = L2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "32",
     "dica": "P = 4 L",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 3,
@@ -23,7 +23,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "40",
     "dica": "A = b x h",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 4,
@@ -31,7 +31,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "28",
     "dica": "P = 2(b+h)",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 5,
@@ -39,7 +39,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "40",
     "dica": "A= (D x d)/2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 6,
@@ -47,7 +47,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "28",
     "dica": "P = 4 L",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 7,
@@ -55,7 +55,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "30",
     "dica": "A= (b x h)/2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 8,
@@ -63,7 +63,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "21",
     "dica": "P = L1 + L2 + L3",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 9,
@@ -71,7 +71,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "50.24",
     "dica": "A = π r2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 10,
@@ -79,7 +79,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "62.8",
     "dica": "C = 2 πr",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 11,
@@ -87,7 +87,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "16",
     "dica": "(L desenho x cm desenho) /100",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 12,
@@ -95,7 +95,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "850.00",
     "dica": "P = 4L; Multiplicar o custo",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 13,
@@ -103,7 +103,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "2800",
     "dica": "Area da quadra; Area do piso; Area / piso",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 14,
@@ -111,7 +111,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "48",
     "dica": "Comprimento e largura externo +2; 2 x(comprimento externo + largura externo)",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 15,
@@ -119,7 +119,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "150",
     "dica": "Dividir as diagonais pela escala (4); A =(D x d)/2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 16,
@@ -127,7 +127,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "219.2",
     "dica": "P = 4 L; Multiplicar pelo N voltas",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 17,
@@ -135,7 +135,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "48",
     "dica": "descobrir altura: h² = L² - (b/2)²; A = (base x altura)/2",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 18,
@@ -143,7 +143,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "18",
     "dica": "P = L1 + L2 + L3",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 19,
@@ -151,7 +151,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "141.3",
     "dica": "Area = π * (Raio_maior² – Raio_menor²)",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 20,
@@ -159,7 +159,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "157",
     "dica": "C = 2πr",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 21,
@@ -167,7 +167,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "400",
     "dica": "Area total / N lotes",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 22,
@@ -175,7 +175,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "136",
     "dica": "Lado externo = Lado interno + (2 * largura_calçada); P = 4 * Lado_externo",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 23,
@@ -183,7 +183,7 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "360.00",
     "dica": "A = L²; Custo = A * 250",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   },
   {
     "id": 24,
@@ -191,6 +191,6 @@ export const mathQuestionsFogo: Question[] = [
     "resposta": "91",
     "dica": "Nova área – Area inicial",
     "imagem": null,
-    "dificuldade": "agua"
+    "dificuldade": "fogo"
   }
 ];
