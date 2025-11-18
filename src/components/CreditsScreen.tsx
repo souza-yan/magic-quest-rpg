@@ -13,7 +13,7 @@ export const CreditsScreen = ({ onBack }: CreditsScreenProps) => {
         <div className="space-y-6 text-sm">
           <div>
             <h2 className="text-lg text-secondary mb-2">Desenvolvimento</h2>
-            <p className="text-muted-foreground">Yan Souza Martins</p>
+            <p className="text-muted-foreground">Yan Souza, Barbara Luisa, Cauã Liotti, Sophie Silva, Ana Beatriz Meireles, Eliene Fiuza, Erick Jesus, Nicolas Cascino.</p>
           </div>
           
           <div>

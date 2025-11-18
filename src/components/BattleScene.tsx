@@ -36,7 +36,7 @@ const spells: Spell[] = [
     color: 'from-orange-500 to-red-500',
     description: 'Áreas médias • Dano médio'
   },
-  {
+  /*{
     type: 'thunder',
     name: 'Magia de Trovão',
     difficulty: 'hard',
@@ -44,7 +44,7 @@ const spells: Spell[] = [
     icon: '⚡',
     color: 'from-yellow-400 to-yellow-600',
     description: 'Áreas complexas • Dano alto'
-  }
+  }*/
 ];
 
 // Define os inimigos por fase
