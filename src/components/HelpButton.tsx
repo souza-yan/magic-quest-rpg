@@ -35,7 +35,7 @@ export const HelpButton = ({ formulaType, onHelpUsed, dica }: HelpButtonProps) =
       </Button>
 
       {showHelp && (
-        <Card className="absolute top-12 right-0 w-80 p-4 bg-yellow-950 border-2 border-yellow-600 z-50 animate-scale-in">
+        <Card className="fixed right-4 top-1/2 transform -translate-y-1/2 w-80 p-4 bg-yellow-950 border-2 border-yellow-600 z-50 animate-scale-in">
           <h3 className="text-sm font-bold text-yellow-400 mb-2">{help.title}</h3>
           <div className="text-xs space-y-2">
             <div className="bg-black/30 p-2 rounded">
